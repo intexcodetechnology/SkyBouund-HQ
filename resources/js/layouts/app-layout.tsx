@@ -1,3 +1,5 @@
+import AppLogo from '@/components/app-logo';
+import AppLogoIcon from '@/components/app-logo-icon';
 import { Link, router, usePage } from '@inertiajs/react';
 import {
     ChartPie,
@@ -12,10 +14,16 @@ import {
     X,
     LogOut,
     Settings,
+    PanelLeftClose,
+    PanelLeftOpen,
 } from 'lucide-react';
-import { useState, type ReactNode } from 'react';
-import AppearanceTabs from '@/components/appearance-tabs';
-import { Monitor } from 'lucide-react';
+import { useEffect, useState, type ReactNode } from 'react';
+import { useSidebarCollapse } from '@/hooks/use-sidebar-collapse';
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipTrigger,
+} from '@/components/ui/tooltip';
 import { Button } from '@/components/ui/button';
 import { useWorkspace, can } from '@/components/workspace';
 import type { BreadcrumbItem, User } from '@/types';
@@ -79,29 +87,79 @@ export default function AppLayout({
     const page = usePage<{ auth: { user: User } }>();
     const { workspace, flash } = useWorkspace();
     const [open, setOpen] = useState(false);
+    const { collapsed, mobile, toggle } = useSidebarCollapse();
+    useEffect(() => {
+        if (!mobile) setOpen(false);
+    }, [mobile]);
+    useEffect(() => {
+        if (!mobile || !open) return;
+        const close = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') {
+                setOpen(false);
+                requestAnimationFrame(() =>
+                    document
+                        .getElementById('mobile-navigation-toggle')
+                        ?.focus(),
+                );
+            }
+        };
+        window.addEventListener('keydown', close);
+        return () => window.removeEventListener('keydown', close);
+    }, [mobile, open]);
     const current = navigation.find((n) => page.url.split('?')[0] === n.url);
     const user = page.props.auth.user;
     return (
         <div className="hq-shell">
-            {open && (
+            {open && mobile && (
                 <button
                     className="hq-backdrop"
                     aria-label="Close navigation"
                     onClick={() => setOpen(false)}
                 />
             )}
-            <aside className="hq-sidebar" data-open={open}>
-                <Link
-                    href="/dashboard"
-                    className="hq-brand"
-                    aria-label="SkyBound HQ dashboard"
-                >
-                    <div className="hq-logo">SB</div>
-                    <div>
-                        <strong>SKYBOUND HQ</strong>
-                        <small>Command Centre</small>
-                    </div>
-                </Link>
+            <aside
+                id="workspace-sidebar"
+                className="hq-sidebar"
+                data-open={open}
+                inert={mobile && !open}
+            >
+                <div className="hq-brand-header">
+                    <Link
+                        href="/dashboard"
+                        className="hq-brand"
+                        aria-label="SkyBound HQ dashboard"
+                    >
+                        <div className="hq-logo"><AppLogoIcon className="size-10" /></div>
+                        <div>
+                            <strong><AppLogo /></strong>
+                            <small>Command Centre</small>
+                        </div>
+                    </Link>
+                    <Button
+                        type="button"
+                        className="hq-collapse-toggle"
+                        variant="ghost"
+                        size="icon"
+                        aria-label={
+                            mobile
+                                ? 'Close sidebar'
+                                : collapsed
+                                  ? 'Expand sidebar'
+                                  : 'Collapse sidebar'
+                        }
+                        aria-expanded={mobile ? open : !collapsed}
+                        aria-controls="workspace-sidebar"
+                        onClick={() => (mobile ? setOpen(false) : toggle())}
+                    >
+                        {mobile ? (
+                            <X size={17} />
+                        ) : collapsed ? (
+                            <PanelLeftOpen size={17} />
+                        ) : (
+                            <PanelLeftClose size={17} />
+                        )}
+                    </Button>
+                </div>
                 <p className="hq-menu-label">Main menu</p>
                 <nav className="hq-nav" aria-label="Main navigation">
                     {navigation
@@ -111,39 +169,72 @@ export default function AppLayout({
                                 : can(n.permission, workspace),
                         )
                         .map((n) => (
-                            <Link
-                                key={n.url}
-                                href={n.url}
-                                title={n.title}
-                                onClick={() => setOpen(false)}
-                                data-active={current?.url === n.url}
-                                aria-current={
-                                    current?.url === n.url ? 'page' : undefined
-                                }
-                            >
-                                <n.icon />
-                                <span>{n.title}</span>
-                                {n.url === '/auto-dialing' && (
-                                    <span className="hq-nav-tag">CORE</span>
+                            <Tooltip key={n.url}>
+                                <TooltipTrigger asChild>
+                                    <Link
+                                        href={n.url}
+                                        aria-label={n.title}
+                                        onClick={() => setOpen(false)}
+                                        data-active={current?.url === n.url}
+                                        aria-current={
+                                            current?.url === n.url
+                                                ? 'page'
+                                                : undefined
+                                        }
+                                    >
+                                        <n.icon aria-hidden="true" />
+                                        <span>{n.title}</span>
+                                        {n.url === '/auto-dialing' && (
+                                            <span className="hq-nav-tag">
+                                                CORE
+                                            </span>
+                                        )}
+                                    </Link>
+                                </TooltipTrigger>
+                                {collapsed && !mobile && (
+                                    <TooltipContent side="right">
+                                        {n.title}
+                                    </TooltipContent>
                                 )}
-                            </Link>
+                            </Tooltip>
                         ))}
                 </nav>
-                <div className="hq-appearance"><AppearanceTabs/><Link href="/settings/appearance" className="hq-appearance-collapsed" aria-label="Appearance settings"><Monitor size={18}/></Link></div>
-                <div className="hq-sidebar-bottom">
-                    <span>● Workspace</span>
-                    <span>SKYBOUND HQ</span>
+                <div className="hq-sidebar-footer">
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <Link
+                                href="/settings/profile"
+                                className="hq-account-link"
+                                aria-label="Account settings"
+                                onClick={() => setOpen(false)}
+                            >
+                                <Settings size={18} aria-hidden="true" />
+                                <span>Account Settings</span>
+                            </Link>
+                        </TooltipTrigger>
+                        {collapsed && !mobile && (
+                            <TooltipContent side="right">
+                                Account Settings
+                            </TooltipContent>
+                        )}
+                    </Tooltip>
+                    <div className="hq-sidebar-bottom">
+                        <span>● Workspace</span>
+                        <span>SKYBOUND HQ</span>
+                    </div>
                 </div>
             </aside>
             <div className="hq-main">
                 <header className="hq-header">
                     <Button
+                        id="mobile-navigation-toggle"
                         className="hq-mobile-toggle"
                         variant="ghost"
                         size="icon"
                         aria-label={
                             open ? 'Close navigation' : 'Open navigation'
                         }
+                        aria-controls="workspace-sidebar"
                         aria-expanded={open}
                         onClick={() => setOpen(!open)}
                     >

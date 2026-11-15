@@ -1,23 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { readFileSync } from 'node:fs';
-import { createHmac } from 'node:crypto';
-
-function totp(secret: string): string {
-    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
-    const bits = [...secret]
-        .map((char) => alphabet.indexOf(char).toString(2).padStart(5, '0'))
-        .join('');
-    const bytes = bits.match(/.{8}/g) ?? [];
-    const key = Buffer.from(bytes.map((byte) => parseInt(byte, 2)));
-    const counter = Buffer.alloc(8);
-    counter.writeBigUInt64BE(BigInt(Math.floor(Date.now() / 30000)));
-    const hash = createHmac('sha1', key).update(counter).digest();
-    const offset = hash[hash.length - 1] & 15;
-    return String((hash.readUInt32BE(offset) & 0x7fffffff) % 1000000).padStart(
-        6,
-        '0',
-    );
-}
+import { totp } from './support/totp';
 
 test('administrator completes TOTP and manages customers, products, tasks and reports', async ({
     page,
@@ -57,7 +40,12 @@ test('administrator completes TOTP and manages customers, products, tasks and re
         .click();
     await expect(page.getByRole('dialog')).not.toBeVisible();
     await expect(page.getByText(name, { exact: true })).toBeVisible();
-    await expect(page.getByRole('row').filter({hasText:name}).getByText('••••••••1234')).toBeVisible();
+    await expect(
+        page
+            .getByRole('row')
+            .filter({ hasText: name })
+            .getByText('••••••••1234'),
+    ).toBeVisible();
     await expect(page.getByText('900101101234', { exact: true })).toHaveCount(
         0,
     );

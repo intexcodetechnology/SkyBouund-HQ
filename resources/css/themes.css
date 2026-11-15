@@ -16,14 +16,15 @@
     --accent: #f4edda;
     --accent-foreground: #574313;
     --destructive: #a52b23;
-    --destructive-foreground: #ffffff;
+    --destructive-foreground: #a52b23;
+    --error-text: #a52b23;
     --border: #e0d7c3;
     --border-strong: #bca56e;
-    --input: #bfb39b;
+    --input: #9c8b68;
     --ring: #92701c;
     --brand-text: #795b0f;
     --placeholder: #746b5d;
-    --brand-heading-gradient: linear-gradient(100deg,#795b0f,#a17b20);
+    --brand-heading-gradient: linear-gradient(100deg, #795b0f, #a17b20);
     --field-background: #fffefa;
     --header-background: #fffefa;
     --table-heading: #f1ead7;
@@ -64,14 +65,16 @@
     --muted-foreground: #bdb7a5;
     --accent: #292414;
     --accent-foreground: #f4df8a;
-    --destructive: #ffb3a3;
+    --destructive: #a52b23;
+    --destructive-foreground: #ffb3a3;
+    --error-text: #ffb3a3;
     --border: #3c3522;
     --border-strong: #806824;
-    --input: #665a39;
+    --input: #857348;
     --ring: #d4af37;
     --brand-text: #f4df8a;
     --placeholder: #999181;
-    --brand-heading-gradient: linear-gradient(100deg,#f4df8a,#d4af37);
+    --brand-heading-gradient: linear-gradient(100deg, #f4df8a, #d4af37);
     --field-background: #111111;
     --header-background: #171717;
     --table-heading: #242116;
@@ -118,38 +121,73 @@
     font-weight: 500;
     cursor: pointer;
     white-space: nowrap;
-    transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
+    transition:
+        background-color 160ms ease,
+        color 160ms ease,
+        box-shadow 160ms ease;
 }
-.appearance-option svg { width: 15px; height: 15px; }
-.appearance-option:hover { background: var(--accent); color: var(--foreground); }
+.appearance-option svg {
+    width: 15px;
+    height: 15px;
+}
+.appearance-option:hover {
+    background: var(--accent);
+    color: var(--foreground);
+}
 .appearance-option[aria-checked='true'] {
+    font-weight: 600;
     background: var(--card);
     color: var(--brand-text);
-    border-color: var(--border-strong);
+    border-color: var(--ring);
     box-shadow: 0 2px 6px #0000000b;
 }
-.appearance-option:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
-.hq-appearance { margin-top: auto; padding: 18px 14px; }
-.hq-appearance .appearance-control { width: 100%; }
-.hq-appearance .appearance-option { flex: 1; padding: 9px 7px; gap: 5px; }
-.hq-appearance-collapsed { display: none; }
-.hq-sidebar-bottom { margin-top: 0; }
-.sky-appearance { position: absolute; top: 22px; right: 24px; z-index: 2; }
-.auth-appearance { position: absolute; top: 20px; right: 20px; }
-.hq-brand-text { color: var(--brand-text); }
-.hq-profile-highlight { background: var(--accent); border-color: var(--border-strong); }
-@media (min-width: 641px) and (max-width: 1000px) {
-    .hq-appearance .appearance-control { display: none; }
-    .hq-appearance-collapsed { display: grid; place-items: center; padding: 12px; border-radius: 8px; color: var(--brand-text); }
+.appearance-option:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
 }
-@media (max-width: 640px) {
-    .hq-appearance { display: none; }
-    .hq-sidebar[data-open='true'] .hq-appearance { display: block; }
+.hq-brand-text {
+    color: var(--brand-text);
 }
-@media (max-width: 760px) {
-    .sky-appearance { position: static; margin-bottom: 16px; }
-    .auth-appearance { position: static; margin: 0 auto 24px; }
+.hq-profile-highlight {
+    background: var(--accent);
+    border-color: var(--border-strong);
 }
 @media (prefers-reduced-motion: reduce) {
-    .appearance-option { transition: none; }
+    .appearance-option {
+        transition: none;
+    }
+}
+
+.hq-sidebar {
+    overflow-y: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    body,
+    .hq-shell,
+    .hq-panel,
+    .hq-header,
+    .hq-profile,
+    .hq-agent,
+    .hq-table th,
+    .hq-table td,
+    .sky-login,
+    .sky-input {
+        transition:
+            background-color 160ms ease,
+            color 160ms ease,
+            border-color 160ms ease;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    [data-slot='dialog-content'],
+    [data-slot='dialog-overlay'] {
+        animation: none !important;
+    }
+}
+
+/* Error text and destructive button fills need different contrast in dark mode. */
+.text-destructive,
+.text-destructive:hover {
+    color: var(--error-text);
 }

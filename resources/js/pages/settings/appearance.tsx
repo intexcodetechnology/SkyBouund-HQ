@@ -19,9 +19,14 @@ export default function Appearance() {
                     description="Choose a light, dark or device-matched theme. Your choice is saved in this browser."
                 />
                 <AppearanceTabs />
-                <p className="text-sm text-muted-foreground" role="status" aria-live="polite">
+                <p
+                    className="text-sm text-muted-foreground"
+                    role="status"
+                    aria-live="polite"
+                >
                     {appearance === 'system' ? 'Following your device. ' : ''}
-                    Currently displaying {resolvedAppearance === 'dark' ? 'Dark' : 'Light'} mode.
+                    Currently displaying{' '}
+                    {resolvedAppearance === 'dark' ? 'Dark' : 'Light'} mode.
                 </p>
             </div>
         </>

@@ -17,13 +17,17 @@
                 document.documentElement.classList.toggle('dark', dark);
                 document.documentElement.dataset.appearance = mode;
                 document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+                var collapsed = null;
+                try { collapsed = localStorage.getItem('skybound.sidebar.collapsed'); } catch (error) {}
+                if (collapsed !== 'true' && collapsed !== 'false') collapsed = window.matchMedia('(min-width: 641px) and (max-width: 1000px)').matches ? 'true' : 'false';
+                document.documentElement.dataset.sidebarCollapsed = collapsed;
             })();
         </script>
         <style>html { background: #f8f6f0; color-scheme: light; } html.dark { background: #101010; color-scheme: dark; }</style>
 
-        <link rel="icon" href="/favicon.ico" sizes="any">
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+        <link rel="icon" href="/favicon.ico?v=skybound-3" sizes="any">
+        <link rel="icon" href="/favicon.svg?v=skybound-3" type="image/svg+xml">
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=skybound-3">
 
         @fonts
 

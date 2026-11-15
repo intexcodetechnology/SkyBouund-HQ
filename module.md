@@ -366,3 +366,11 @@ Cross-document review checks: all seven modules covered; all 30 named functions 
 
 These references describe the prototype as supplied and offer an explicit production foundation. They do not implement that foundation. A new team should resolve the marked policy questions, reconcile contradictory fixture identities, and agree on real state/permission contracts before converting demo success messages into production behavior.
 
+
+## Appearance implementation — 15 November 2026
+
+Light, Dark and System now share central CSS tokens and a browser-persistent React appearance store. Controls appear in Appearance settings, the workspace sidebar and authentication layouts. System changes update both DOM colors and React state; localStorage is applied before first paint. Shared tokens cover workspace/auth surfaces and shadcn portals. The original black-and-gold identity remains the Dark palette; Light uses off-white/charcoal with gold accents. See design/appearance-implementation.md for implementation and test coverage. No module permissions or database schema changed.
+
+## Sidebar and appearance placement update
+
+The application shell now has an explicit saved collapse state (localStorage key skybound.sidebar.collapsed), compact-icon tooltips and responsive content resizing. Mobile drawer state is separate. The theme selector is now available only through Account Settings → Appearance; global theming is unchanged. See design/sidebar-implementation.md for source files and verification.

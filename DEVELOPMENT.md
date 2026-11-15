@@ -105,3 +105,17 @@ Compose uses DB_HOST=mysql, port 3306. For native Laragon use DB_HOST=127.0.0.1 
 
 ## 15 November 2026 — Local login verified
 Dedicated MySQL 8.4 instance runs on 127.0.0.1:3307 using ignored .local/mysql data. All migrations applied. Laravel uses restricted skybound_app credentials. Initial verified-email account admin@skybound.test and Headquarters membership exist. Password is stored locally in ignored .local/login.json. Password hash verification and real Edge/Fortify sign-in to /dashboard passed. Roles/administrative enforcement and CRM remain pending. Restart using powershell -ExecutionPolicy Bypass -File scripts/start-local.ps1. MySQL distribution reports missing optional component/ICU files, but starts and authentication queries succeed; replace with a complete installation before broader database testing.
+
+## Light / Dark / System appearance — 15 November 2026
+
+Implemented browser-persistent, localStorage-first appearance with live System changes, cross-tab synchronization and pre-paint theme resolution. A reusable keyboard-accessible segmented control is available in Appearance settings, the sidebar and auth screens. Shared semantic palettes now cover the workspace, login, forms, tables, native controls and shadcn portals; fixed dark overrides were removed. No migrations or business authorization changes were needed.
+
+Verification: 6 Edge/Playwright tests passed (5 appearance tests plus the existing CRM workflow), 3 foundation smoke tests passed, frontend build/TypeScript and Larastan/Pint passed. Tested palette text pairs meet 4.5:1 and form boundaries 3:1. See design/appearance-implementation.md for the full changed-file inventory, screenshots, behavior and limits.
+
+## Sidebar collapse and settings-only appearance
+
+Implemented a localStorage-persistent 256px/72px desktop/tablet sidebar with a top toggle, visible SB icon, active links and shadcn tooltips. Main content resizes with it; the pre-paint script restores saved state before React. Mobile uses an independent full drawer without resetting the desktop preference. Account Settings remains accessible in both modes.
+
+The Light/Dark/System selector now mounts only on Account Settings → Appearance. Sidebar and auth-screen duplicates and their placement styles were removed. Global appearance persistence, OS matching and pre-paint behavior remain intact.
+
+Verification: all 6 browser tests passed, including sidebar reload/navigation/tooltips/responsive checks, settings-only themes, pre-paint/blocked storage behavior and the original CRM workflow. Build and TypeScript passed. Source and screenshot details: design/sidebar-implementation.md.
