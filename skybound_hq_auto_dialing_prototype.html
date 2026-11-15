@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKYBOUND HQ - Smart Calling & CRM</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                            dark: '#0f172a',
+                            sidebar: '#0e1e38',
+                            hover: '#1e325c'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Smooth Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .animate-pulse-fast {
+            animation: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+
+    <style id="skybound-black-gold-theme">
+      :root { --gold:#d4af37; --gold-light:#f4df8a; --ink:#101010; --panel:#181818; --panel2:#202020; --line:#3a3320; }
+      body { background:#101010 !important; color:#f4f0e3 !important; }
+      aside { background:linear-gradient(180deg,#090909 0%,#17140b 100%) !important; border-right:1px solid #3b3218; }
+      header { background:#171717 !important; border-color:#3b3218 !important; color:#f8f4e8 !important; }
+      #main-viewport { background:#101010 !important; }
+      .bg-white { background:#191919 !important; }
+      .bg-slate-50,.bg-slate-100 { background:#222 !important; }
+      .bg-slate-200 { background:#383838 !important; }
+      .text-slate-800,.text-slate-900,.text-slate-700 { color:#f5f0df !important; }
+      .text-slate-600,.text-slate-500,.text-slate-400 { color:#c2bda9 !important; }
+      [class*="border-slate-"],[class*="border-indigo-"],[class*="border-blue-"],[class*="border-emerald-"] { border-color:#3c3522 !important; }
+      .bg-blue-600,.hover\:bg-blue-700:hover,.bg-indigo-600 { background:#b18d20 !important; color:#111 !important; }
+      .text-blue-600,.text-blue-700,.text-indigo-600 { color:#e0bd4e !important; }
+      .bg-blue-50,.bg-indigo-50,.bg-indigo-50\/60 { background:#292414 !important; }
+      .bg-emerald-600,.hover\:bg-emerald-700:hover { background:#b89527 !important; color:#111 !important; }
+      .text-emerald-600,.text-emerald-700 { color:#e3c45d !important; }
+      .bg-emerald-50 { background:#292514 !important; }
+      .bg-amber-100,.bg-amber-50 { background:#332b16 !important; }
+      .text-amber-700,.text-amber-800,.text-amber-600 { color:#f0d26b !important; }
+      .bg-rose-50,.bg-rose-100 { background:#321d1d !important; }
+      .text-rose-600,.text-rose-700 { color:#ff9d9d !important; }
+      input,select,textarea { background:#111 !important; color:#f7f1df !important; border-color:#51472a !important; }
+      input::placeholder,textarea::placeholder { color:#8e8877 !important; }
+      table thead { background:#242116 !important; }
+      tr:hover { background:#282315 !important; }
+      .nav-item { color:#d6d0bd !important; }
+      .nav-item:hover,.nav-item.bg-blue-600 { background:#3a3017 !important; color:#f5d76b !important; }
+      .shadow-sm,.shadow-xl,.shadow-md { box-shadow:0 8px 24px rgba(0,0,0,.24) !important; }
+      .rounded-xl,.rounded-2xl { border-color:#39311d; }
+      .sky-gold { color:#f0d36a !important; }
+      .sky-gold-btn { background:linear-gradient(135deg,#f3df91,#b58b1e) !important; color:#111 !important; font-weight:800; }
+      .sky-panel { background:linear-gradient(145deg,#1b1b1b,#111) !important; border:1px solid #4a3b18 !important; }
+      .sky-modal-backdrop { position:fixed; inset:0; background:rgba(0,0,0,.75); z-index:100; display:flex; align-items:center; justify-content:center; padding:18px; }
+      .sky-modal { width:min(620px,100%); max-height:90vh; overflow:auto; background:#181818; color:#f5f0df; border:1px solid #806824; border-radius:18px; padding:22px; box-shadow:0 24px 80px #000; }
+      .sky-modal label { display:block; font-size:12px; color:#d8cfae; margin:8px 0 4px; }
+      .sky-modal input,.sky-modal select,.sky-modal textarea { width:100%; border:1px solid #51472a; border-radius:8px; padding:9px; }
+      .sky-small-action { display:inline-flex; align-items:center; gap:5px; border:1px solid #5a4a21; color:#f0d36a; background:#272111; border-radius:7px; padding:5px 8px; font-size:11px; font-weight:700; }
+      @media(max-width:768px){ aside{width:64px!important;} aside .p-4>div:last-child, aside nav span, aside .p-3.text-xs, aside aside footer {display:none;} }
+    </style>
+
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans antialiased h-screen overflow-hidden flex">
+
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="w-64 bg-brand-sidebar text-slate-300 flex flex-col flex-shrink-0 shadow-xl z-20">
+        <!-- Logo Header -->
+        <div class="p-4 flex items-center space-x-3 border-b border-slate-700/50">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-yellow-200 to-yellow-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-yellow-500/30">
+                N
+            </div>
+            <div>
+                <h1 class="font-bold text-white text-base leading-tight tracking-wide">SKYBOUND HQ</h1>
+                <p class="text-[10px] text-yellow-300 font-medium tracking-wider uppercase">Command Centre</p>
+            </div>
+        </div>
+
+        <!-- Navigation Menu -->
+        <div class="p-3 text-xs font-semibold text-slate-400 tracking-wider uppercase mt-2">
+            Menu Utama
+        </div>
+        <nav class="flex-1 px-3 space-y-1 overflow-y-auto">
+            <button onclick="switchPage('dashboard')" id="nav-dashboard" class="nav-item w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all text-white bg-yellow-600 shadow-md">
+                <i class="fa-solid fa-chart-pie w-5 text-center text-base"></i>
+                <span>Dashboard</span>
+            </button>
+
+            <!-- Menu Baru: Auto Dialing di bawah Dashboard -->
+            <button onclick="switchPage('autodial')" id="nav-autodial" class="nav-item w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:bg-brand-hover hover:text-white transition-all">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-solid fa-headset w-5 text-center text-base text-cyan-400"></i>
+                    <span class="font-semibold text-yellow-300">Auto Dialing</span>
+                </div>
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-cyan-500/20 text-yellow-300">UTAMA</span>
+            </button>
+
+            <button onclick="switchPage('tugasan')" id="nav-tugasan" class="nav-item w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:bg-brand-hover hover:text-white transition-all">
+                <i class="fa-solid fa-list-check w-5 text-center text-base"></i>
+                <span>Pengurusan Tugasan</span>
+            </button>
+
+            <button onclick="switchPage('database')" id="nav-database" class="nav-item w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:bg-brand-hover hover:text-white transition-all">
+                <i class="fa-solid fa-address-book w-5 text-center text-base"></i>
+                <span>Database Pelanggan</span>
+            </button>
+
+            <button onclick="switchPage('ejen')" id="nav-ejen" class="nav-item w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:bg-brand-hover hover:text-white transition-all">
+                <i class="fa-solid fa-users-gear w-5 text-center text-base"></i>
+                <span>Pengurusan Ejen</span>
+            </button>
+
+            <button onclick="switchPage('laporan')" id="nav-laporan" class="nav-item w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:bg-brand-hover hover:text-white transition-all">
+                <i class="fa-solid fa-file-contract w-5 text-center text-base"></i>
+                <span>Laporan</span>
+            </button>
+
+            <button onclick="switchPage('tetapan')" id="nav-tetapan" class="nav-item w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:bg-brand-hover hover:text-white transition-all">
+                <i class="fa-solid fa-sliders w-5 text-center text-base"></i>
+                <span>Tetapan Sistem</span>
+            </button>
+        </nav>
+
+        <!-- Sidebar Footer -->
+        <div class="p-3 border-t border-slate-700/50 text-xs text-slate-400 flex items-center justify-between">
+            <span class="flex items-center space-x-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                <span class="text-emerald-400 font-medium">Sistem Aktif</span>
+            </span>
+            <span>v2.4 Pro</span>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <div class="flex-1 flex flex-col h-full overflow-hidden">
+
+        <!-- TOP BAR -->
+        <header class="bg-white border-b border-slate-200 px-6 py-3 flex items-center justify-between z-10 shadow-sm">
+            <div>
+                <h2 id="page-title" class="text-xl font-bold text-slate-800">Dashboard</h2>
+                <p id="page-subtitle" class="text-xs text-slate-500">Smart Calling & Customer Relationship Management</p>
+            </div>
+
+            <!-- Profile Badge & Quick Status -->
+            <div class="flex items-center space-x-4">
+                <div class="hidden sm:flex items-center space-x-2 bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full border border-emerald-200 text-xs font-semibold">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    <span>Line Telefon: Bersedia</span>
+                </div>
+                <div class="flex items-center space-x-3 bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5">
+                    <img id="admin-avatar" src="https://api.dicebear.com/9.x/initials/svg?seed=Admin%20HQ&backgroundColor=292414&textColor=f4d66d" alt="Admin" class="w-9 h-9 rounded-full border-2 border-yellow-600 object-cover">
+                    
+                    <div class="text-left">
+                        <div class="text-xs font-bold text-slate-800">SKYBOUND HQ Admin</div>
+                        <div class="text-[10px] text-slate-500">Admin demo (Ejen #102)</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- VIEWPORT PAGES -->
+        <main class="flex-1 overflow-y-auto p-6 bg-slate-100" id="main-viewport">
+
+            <!-- PAGE 1: DASHBOARD -->
+            <div id="page-dashboard" class="page-content space-y-6">
+                <!-- Stat Cards Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition">
+                        <div class="text-xs font-semibold text-slate-400 uppercase tracking-wide">Jumlah Leads</div>
+                        <div class="text-3xl font-extrabold text-slate-800 mt-2">248</div>
+                        <div class="text-xs text-slate-500 mt-1 flex items-center justify-between">
+                            <span>Data contoh</span>
+                            <span class="text-blue-600 font-semibold">+12 hari ini</span>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition">
+                        <div class="text-xs font-semibold text-slate-400 uppercase tracking-wide">Leads Selesai</div>
+                        <div class="text-3xl font-extrabold text-emerald-600 mt-2">76</div>
+                        <div class="text-xs text-emerald-600 mt-1 font-medium">Status close / selesai</div>
+                    </div>
+                    <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition">
+                        <div class="text-xs font-semibold text-slate-400 uppercase tracking-wide">Ejen Berdaftar</div>
+                        <div class="text-3xl font-extrabold text-blue-600 mt-2">8</div>
+                        <div class="text-xs text-slate-500 mt-1">Dalam pasukan aktif</div>
+                    </div>
+                    <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition">
+                        <div class="text-xs font-semibold text-slate-400 uppercase tracking-wide">Follow-up</div>
+                        <div class="text-3xl font-extrabold text-amber-500 mt-2">32</div>
+                        <div class="text-xs text-amber-600 mt-1 font-medium">Perlu tindakan susulan</div>
+                    </div>
+                </div>
+
+                <!-- Middle Section: Auto Dialing Banner CTA & Status Summary -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- High Priority Auto Dialing CTA Banner -->
+                    <div class="lg:col-span-2 bg-gradient-to-r from-black via-[#211b0b] to-[#3a2c0b] rounded-2xl p-6 text-white shadow-xl relative overflow-hidden flex flex-col justify-between">
+                        <div class="absolute right-0 top-0 translate-x-1/4 -translate-y-1/4 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                        <div>
+                            <div class="inline-flex items-center space-x-2 bg-blue-500/20 text-yellow-300 border border-cyan-500/30 px-3 py-1 rounded-full text-xs font-semibold mb-3">
+                                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                                <span>Mod Auto Dialing Ditingkatkan</span>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-2">Mula Panggilan Automatik</h3>
+                            <p class="text-slate-300 text-sm max-w-xl leading-relaxed">
+                                Jalankan fungsi auto dialing dengan pengiraan pemasa 30 saat secara auto-call, paparan terus maklumat pelanggan dan integrasi jualan WhatsApp segera.
+                            </p>
+                        </div>
+                        <div class="mt-6 flex flex-wrap items-center gap-4">
+                            <button onclick="switchPage('autodial')" class="bg-gradient-to-r from-yellow-200 to-yellow-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold px-6 py-3 rounded-xl shadow-lg shadow-yellow-500/30 hover:shadow-cyan-500/50 transition duration-200 flex items-center space-x-3 text-sm">
+                                <i class="fa-solid fa-phone-volume text-lg animate-bounce"></i>
+                                <span>BUKA AUTO DIALING SEKARANG →</span>
+                            </button>
+                            <span class="text-xs text-slate-400">15 Panggilan demo bersedia dalam giliran</span>
+                        </div>
+                    </div>
+
+                    <!-- Ringkasan Status -->
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
+                        <h4 class="font-bold text-slate-800 border-b border-slate-100 pb-3 flex items-center justify-between">
+                            <span>Ringkasan Status</span>
+                            <i class="fa-solid fa-chart-simple text-blue-600"></i>
+                        </h4>
+                        <div class="space-y-3 my-4">
+                            <div class="flex justify-between items-center text-sm p-2 bg-slate-50 rounded-lg">
+                                <span class="text-slate-600 font-medium">Potensi Jualan</span>
+                                <span class="font-bold text-slate-900 bg-white px-2 py-0.5 rounded border border-slate-200">18</span>
+                            </div>
+                            <div class="flex justify-between items-center text-sm p-2 bg-slate-50 rounded-lg">
+                                <span class="text-slate-600 font-medium">WhatsApp Susulan</span>
+                                <span class="font-bold text-slate-900 bg-white px-2 py-0.5 rounded border border-slate-200">24</span>
+                            </div>
+                            <div class="flex justify-between items-center text-sm p-2 bg-slate-50 rounded-lg">
+                                <span class="text-slate-600 font-medium">Pending Feedback</span>
+                                <span class="font-bold text-slate-900 bg-white px-2 py-0.5 rounded border border-slate-200">24</span>
+                            </div>
+                            <div class="flex justify-between items-center text-sm p-2 bg-slate-50 rounded-lg">
+                                <span class="text-slate-600 font-medium">Close Produk</span>
+                                <span class="font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">12</span>
+                            </div>
+                        </div>
+                        <button onclick="switchPage('laporan')" class="text-xs text-center text-blue-600 hover:underline font-semibold block">Lihat Laporan Penuh →</button>
+                    </div>
+                </div>
+
+                <!-- Reminder Pelanggan Table -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+                    <h4 class="font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                        <i class="fa-solid fa-bell text-amber-500"></i>
+                        <span>Reminder Pelanggan Aktiviti</span>
+                    </h4>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-slate-600">
+                            <thead class="text-xs text-slate-400 uppercase bg-slate-50 border-b border-slate-200">
+                                <tr>
+                                    <th class="py-3 px-4">Nama Pelanggan</th>
+                                    <th class="py-3 px-4">Status</th>
+                                    <th class="py-3 px-4">Nota Reminder</th>
+                                    <th class="py-3 px-4">Tarikh</th>
+                                    <th class="py-3 px-4">Tindakan</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr class="hover:bg-slate-50">
+                                    <td class="py-3 px-4 font-semibold text-slate-800">Layla</td>
+                                    <td class="py-3 px-4"><span class="bg-amber-100 text-amber-700 text-xs px-2.5 py-1 rounded-full font-medium">Follow-up 3 Bulan</span></td>
+                                    <td class="py-3 px-4">Tunggu budget gaji masuk hujung bulan</td>
+                                    <td class="py-3 px-4">28 Oct 2026</td>
+                                    <td class="py-3 px-4">
+                                        <div class="flex flex-wrap gap-1"><button onclick="quickCallCustomer('Senah binti Kasim')" class="sky-small-action"><i class="fa-solid fa-phone"></i> Call now</button><button onclick="quickWhatsAppCustomer('Senah binti Kasim','60179876543')" class="sky-small-action"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button></div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="py-3 px-4 font-semibold text-slate-800">Aminah Jaya</td>
+                                    <td class="py-3 px-4"><span class="bg-blue-100 text-blue-700 text-xs px-2.5 py-1 rounded-full font-medium">Berminat Aircond</span></td>
+                                    <td class="py-3 px-4">Bincang dengan suami dulu</td>
+                                    <td class="py-3 px-4">29 Oct 2026</td>
+                                    <td class="py-3 px-4">
+                                        <div class="flex flex-wrap gap-1"><button onclick="quickCallCustomer('Miya')" class="sky-small-action"><i class="fa-solid fa-phone"></i> Call now</button><button onclick="quickWhatsAppCustomer('Miya','60198765432')" class="sky-small-action"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 2: AUTO DIALING SYSTEM (PAGE UTAMA RE-STRUCTURED) -->
+            <div id="page-autodial" class="page-content space-y-5 hidden">
+
+                <!-- Top Statistics Stats Row -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                        <div class="text-xs font-medium text-slate-400">Dalam Senarai</div>
+                        <div id="stat-total" class="text-2xl font-bold text-slate-800">15</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                        <div class="text-xs font-medium text-emerald-600">Dijawab</div>
+                        <div id="stat-answered" class="text-2xl font-bold text-emerald-600">0</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                        <div class="text-xs font-medium text-rose-500">Tidak Dijawab</div>
+                        <div id="stat-unanswered" class="text-2xl font-bold text-rose-600">0</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                        <div class="text-xs font-medium text-slate-400">Baki Panggilan</div>
+                        <div id="stat-remaining" class="text-2xl font-bold text-blue-600">15</div>
+                    </div>
+                </div>
+
+                <!-- MAIN WORKSPACE: BARISAN PANGGILAN (LEFT) | DETAILS CUSTOMER (MIDDLE) | CADANGAN PRODUK (RIGHT) -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+
+                    <!-- SEBELAH KIRI: BARISAN PANGGILAN (4 COLS) -->
+                    <div class="lg:col-span-4 bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-100">
+                                <h3 class="font-bold text-slate-800 flex items-center space-x-2">
+                                    <i class="fa-solid fa-list-ol text-blue-600"></i>
+                                    <span>Barisan Panggilan</span>
+                                </h3>
+                                <span id="dialing-status-badge" class="bg-slate-100 text-slate-600 text-[11px] font-bold px-2.5 py-0.5 rounded-full uppercase">Sedia</span>
+                            </div>
+
+                            <p class="text-xs text-slate-500 mb-3">
+                                Klik nama customer dalam senarai untuk paparkan maklumat lanjut atau biarkan Auto Dialing bergerak automatik.
+                            </p>
+
+                            <!-- Live Call Queue List -->
+                            <div id="call-queue-container" class="space-y-2 max-h-[380px] overflow-y-auto pr-1">
+                                <!-- Dynamic Rendered by JS -->
+                            </div>
+                        </div>
+
+                        <!-- BUTTON START / PAUSE TEPAT DI BAWAH BARISAN PANGGILAN -->
+                        <div class="pt-4 border-t border-slate-100 mt-4 space-y-3">
+                            <div class="flex items-center justify-between text-xs text-slate-500 bg-slate-50 p-2 rounded-lg">
+                                <span class="flex items-center space-x-1.5">
+                                    <i class="fa-regular fa-clock text-blue-600"></i>
+                                    <span>Pemasa Auto-Dial:</span>
+                                </span>
+                                <span id="timer-display" class="font-mono font-bold text-blue-700 text-sm">30s</span>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-2">
+                                <button id="btn-start-dial" onclick="startAutoDialing()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-3 rounded-xl shadow-md transition flex items-center justify-center space-x-2 text-sm">
+                                    <i class="fa-solid fa-play"></i>
+                                    <span>Mula Auto Call</span>
+                                </button>
+                                <button id="btn-pause-dial" onclick="pauseAutoDialing()" disabled class="w-full bg-slate-200 text-slate-400 cursor-not-allowed font-bold py-2.5 px-3 rounded-xl transition flex items-center justify-center space-x-2 text-sm">
+                                    <i class="fa-solid fa-pause"></i>
+                                    <span>Pause</span>
+                                </button>
+                            </div>
+
+                            <!-- Fast Simulation Action for Demo -->
+                            <div class="flex items-center gap-2">
+                                <button onclick="simulateCustomerAnswer()" class="w-full bg-blue-50 border border-blue-200 text-blue-700 hover:bg-blue-100 text-xs font-semibold py-2 rounded-lg transition flex items-center justify-center space-x-1">
+                                    <i class="fa-solid fa-phone-arrow-down-left text-emerald-600"></i>
+                                    <span>Simulasi Customer Jawab</span>
+                                </button>
+                                <button onclick="skipNextCall()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium px-3 py-2 rounded-lg transition" title="Langkau">
+                                    <i class="fa-solid fa-forward"></i>
+                                </button>
+                            </div>
+
+                            <p class="text-[11px] text-slate-400 italic text-center">
+                                * Panggilan automatik bertukar selepas 30s jika tiada jawapan.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- BAHAGIAN TENGAH: DETAILS CUSTOMER (4 COLS) - DIPAPARKAN BILA DIJAWAB ATAU DIKLIK -->
+                    <div class="lg:col-span-4 bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex flex-col justify-between relative">
+
+                        <div>
+                            <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-100">
+                                <h3 class="font-bold text-slate-800 flex items-center space-x-2">
+                                    <i class="fa-solid fa-id-card text-indigo-600"></i>
+                                    <span>Maklumat Customer</span>
+                                </h3>
+                                <span id="customer-active-badge" class="bg-slate-100 text-slate-500 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">Tiada Panggilan Aktif</span>
+                            </div>
+
+                            <!-- Mode Normal / Empty State -->
+                            <div id="customer-empty-state" class="py-12 text-center text-slate-400 space-y-3">
+                                <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto text-slate-400 text-2xl">
+                                    <i class="fa-solid fa-user-clock"></i>
+                                </div>
+                                <p class="text-xs max-w-xs mx-auto">
+                                    Maklumat penuh customer akan automatik keluar di sini apabila customer <strong>menjawab panggilan</strong> atau ejen <strong>menekan nama customer</strong> dalam barisan panggilan.
+                                </p>
+                            </div>
+
+                            <!-- Customer Profile & Action Log Form (Hidden by default, shown when clicked / answered) -->
+                            <div id="customer-details-card" class="space-y-3 text-xs hidden">
+                                <div class="bg-indigo-50/60 p-3 rounded-xl border border-indigo-100 flex items-center justify-between">
+                                    <div>
+                                        <div class="text-[10px] uppercase font-bold text-indigo-500">Panggilan Semasa</div>
+                                        <div id="cust-display-name" class="font-bold text-slate-900 text-base">Layla</div>
+                                        <div id="cust-display-phone" class="text-slate-500 text-xs">+6012-987 6543</div>
+                                    </div>
+                                    <span class="w-3 h-3 rounded-full bg-emerald-500 animate-ping" title="Panggilan Berjalan"></span>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div>
+                                        <label class="block text-[11px] font-semibold text-slate-500 mb-1">IC Customer</label>
+                                        <input type="text" id="cust-ic" value="880412-10-5542" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs font-medium text-slate-800">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[11px] font-semibold text-slate-500 mb-1">Status Pilihan</label>
+                                        <select id="cust-status" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-blue-700">
+                                            <option value="Pemasangan Produk">Pemasangan Produk</option>
+                                            <option value="Berminat Follow-up">Berminat Follow-up</option>
+                                            <option value="Tukar Pakej">Tukar Pakej</option>
+                                            <option value="Tidak Berminat">Tidak Berminat</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-slate-500 mb-1">Nama Produk Sedia Ada</label>
+                                    <input type="text" id="cust-existing-prod" value="Penapis Air Villaem III" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-800">
+                                </div>
+
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-slate-500 mb-1">Alamat Pelanggan</label>
+                                    <textarea id="cust-address" rows="2" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-800 resize-none">No. 14, Jalan Sejahtera 3, Taman Bukit Indah, 40150 Shah Alam, Selangor</textarea>
+                                </div>
+
+                                <div class="grid grid-cols-3 gap-2">
+                                    <div>
+                                        <label class="block text-[10px] font-semibold text-slate-500 mb-1">Date Install</label>
+                                        <input type="text" id="cust-install" value="Jan 2020" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-2 py-1 text-[11px]">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] font-semibold text-slate-500 mb-1">Date Expired</label>
+                                        <input type="text" id="cust-expire" value="Jan 2027" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-2 py-1 text-[11px]">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] font-semibold text-slate-500 mb-1">Kontrak</label>
+                                        <select class="w-full bg-slate-50 border border-slate-200 rounded-lg px-1 py-1 text-[11px]">
+                                            <option>7 Tahun</option>
+                                            <option>5 Tahun</option>
+                                            <option>3 Tahun</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Reminder & Remark Matrix -->
+                                <div class="pt-2">
+                                    <label class="block text-[11px] font-bold text-slate-700 mb-1">Reminder & Remark Matrix</label>
+                                    <div class="grid grid-cols-3 gap-1.5 text-center">
+                                        <button onclick="setQuickRemark('Cust minta call semula bulan depan')" class="p-1.5 bg-slate-100 hover:bg-slate-200 rounded border border-slate-200 text-[10px] font-medium text-slate-700 transition">
+                                            12 Bulan
+                                        </button>
+                                        <button onclick="setQuickRemark('Cust tunggu budget bonus')" class="p-1.5 bg-slate-100 hover:bg-slate-200 rounded border border-slate-200 text-[10px] font-medium text-slate-700 transition">
+                                            6 Bulan
+                                        </button>
+                                        <button onclick="setQuickRemark('Tukar filter baharu')" class="p-1.5 bg-slate-100 hover:bg-slate-200 rounded border border-slate-200 text-[10px] font-medium text-slate-700 transition">
+                                            1 Bulan
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-slate-500 mb-1">Nota Remark Ejen</label>
+                                    <input type="text" id="cust-remark-input" value="Customer berminat upgrade ke model baharu." class="w-full bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs font-medium">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Save Action -->
+                        <div id="customer-action-buttons" class="pt-3 border-t border-slate-100 mt-3 grid grid-cols-2 gap-2 hidden">
+                            <button onclick="saveCustomerProfile()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-xl text-xs transition flex items-center justify-center space-x-1">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                <span>Simpan Profil</span>
+                            </button>
+                            <button onclick="skipNextCall()" class="bg-slate-800 hover:bg-slate-900 text-white font-bold py-2 rounded-xl text-xs transition flex items-center justify-center space-x-1">
+                                <span>Proceed Next Call</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- SEBELAH KANAN: CADANGAN PRODUK & WHATSAPP INTEGRATION (4 COLS) -->
+                    <div class="lg:col-span-4 bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-100">
+                                <h3 class="font-bold text-slate-800 flex items-center space-x-2">
+                                    <i class="fa-solid fa-box-open text-emerald-600"></i>
+                                    <span>Cadangan Produk</span>
+                                </h3>
+                                <span class="bg-emerald-50 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-full">WhatsApp Ready</span>
+                            </div>
+
+                            <p class="text-xs text-slate-500 mb-3">
+                                Pilih kategori dan model produk untuk auto-generate maklumat lengkap ke dalam mesej WhatsApp.
+                            </p>
+
+                            <!-- Kategori Utama Buttons (Penapis Air, Penapis Udara, Aircond, Mattress, etc) -->
+                            <div class="space-y-3">
+                                <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">1. Pilih Kategori Produk</label>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <button onclick="selectCategory('water')" id="cat-btn-water" class="cat-btn p-2 rounded-xl border border-blue-500 bg-blue-50 text-blue-700 font-semibold text-xs flex items-center space-x-2 transition">
+                                        <i class="fa-solid fa-glass-water text-blue-600"></i>
+                                        <span>Penapis Air</span>
+                                    </button>
+                                    <button onclick="selectCategory('air')" id="cat-btn-air" class="cat-btn p-2 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 font-semibold text-xs flex items-center space-x-2 transition">
+                                        <i class="fa-solid fa-wind text-cyan-600"></i>
+                                        <span>Penapis Udara</span>
+                                    </button>
+                                    <button onclick="selectCategory('ac')" id="cat-btn-ac" class="cat-btn p-2 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 font-semibold text-xs flex items-center space-x-2 transition">
+                                        <i class="fa-solid fa-snowflake text-sky-600"></i>
+                                        <span>Aircond</span>
+                                    </button>
+                                    <button onclick="selectCategory('mattress')" id="cat-btn-mattress" class="cat-btn p-2 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 font-semibold text-xs flex items-center space-x-2 transition">
+                                        <i class="fa-solid fa-bed text-indigo-600"></i>
+                                        <span>Mattress</span>
+                                    </button>
+                                </div>
+
+                                <!-- Sub-Pilihan Model Produk -->
+                                <div class="pt-2">
+                                    <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1.5">2. Pilih Model Spesifik</label>
+                                    <select id="product-model-select" onchange="onModelChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold text-slate-800 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                        <!-- Rendered dynamically -->
+                                    </select>
+                                </div>
+
+                                <!-- Pre-view Produk Pilihan + Gambar Contoh -->
+                                <div id="product-preview-box" class="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center space-x-3">
+                                    <img id="prod-img" src="https://placehold.co/100x100/0284c7/ffffff?text=Water+Filter" alt="Product" class="w-14 h-14 object-cover rounded-lg border border-slate-200 flex-shrink-0">
+                                    <div class="text-xs">
+                                        <div id="prod-title" class="font-bold text-slate-800">Villaem III Water Purifier</div>
+                                        <div id="prod-price" class="text-emerald-600 font-bold">RM 77 / bulan</div>
+                                        <div id="prod-desc" class="text-[10px] text-slate-500 line-clamp-2">4 Suhu Air (Panas, Sejuk, Suam, Bilik), Tangki 11.3 Liter.</div>
+                                    </div>
+                                </div>
+
+                                <!-- Mesej WhatsApp Preview Box -->
+                                <div>
+                                    <div class="flex items-center justify-between mb-1">
+                                        <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">Bahagian Mesej WhatsApp</label>
+                                        <span class="text-[10px] text-slate-400">Auto-generated</span>
+                                    </div>
+                                    <div class="grid grid-cols-1 gap-1.5 mb-2">
+                                       <label class="block text-[11px] font-bold text-slate-700">Pilih Templat WhatsApp</label>
+                                       <select id="whatsapp-template" onchange="applyWhatsAppTemplate()" class="w-full border rounded-lg px-2.5 py-2 text-xs">
+                                         <option value="manager">1. Templat Manager / Editor</option>
+                                         <option value="custom1">2. Ayat Custom Ejen 1</option>
+                                         <option value="custom2">3. Ayat Custom Ejen 2</option>
+                                       </select>
+                                       <p class="text-[10px] text-slate-500">Ayat custom boleh diedit oleh ejen dalam ruangan mesej di bawah.</p>
+                                     </div>
+                                     <textarea id="whatsapp-message" rows="4" class="w-full bg-emerald-50/50 border border-emerald-200 rounded-xl p-2.5 text-xs text-slate-800 font-sans leading-relaxed resize-none focus:outline-none focus:ring-2 focus:ring-emerald-500">
+Salam sejahtera Tuan/Puan, 
+
+Terima kasih kerana meluangkan masa dalam panggilan sebentar tadi. Ini maklumat produk yang saya cadangkan:
+
+📌 Villaem III Water Purifier
+💰 Harga Promosi: RM 77 / bulan
+✨ Kelebihan: 4 Suhu Air (Panas, Sejuk, Suam, Bilik), Tangki 11.3 Liter. Free Servis & Filter!
+
+Boleh saya bantu daftarkan promosi percuma yuran pendaftaran hari ini?
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- BUTTON UNTUK EJEN HANTAR TERUS KE WHATSAPP -->
+                        <div class="pt-3 border-t border-slate-100 mt-3">
+                            <button onclick="sendDirectWhatsApp()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl shadow-md hover:shadow-lg shadow-emerald-600/20 transition flex items-center justify-center space-x-2 text-sm">
+                                <i class="fa-brands fa-whatsapp text-lg"></i>
+                                <span>Hantar Terus Ke WhatsApp</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BOTTOM LOG PANGGILAN SESI INI -->
+                <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+                    <div class="flex items-center justify-between mb-3">
+                        <h4 class="font-bold text-slate-800 flex items-center space-x-2">
+                            <i class="fa-solid fa-history text-slate-500"></i>
+                            <span>Log Panggilan Sesi Ini</span>
+                        </h4>
+                        <span class="text-xs text-slate-400">Kemaskini Real-Time</span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-xs text-left text-slate-600">
+                            <thead class="text-[11px] text-slate-400 uppercase bg-slate-50 border-b border-slate-200">
+                                <tr>
+                                    <th class="py-2.5 px-3">Masa</th>
+                                    <th class="py-2.5 px-3">Nama Customer</th>
+                                    <th class="py-2.5 px-3">Nombor Telefon</th>
+                                    <th class="py-2.5 px-3">Status Call</th>
+                                    <th class="py-2.5 px-3">Catatan / WhatsApp</th>
+                                </tr>
+                            </thead>
+                            <tbody id="call-log-tbody" class="divide-y divide-slate-100">
+                                <tr class="text-slate-400 italic">
+                                    <td colspan="5" class="py-4 text-center">Belum ada rekod panggilan sesi ini. Tekan "Mula Auto Call" untuk memulakan.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 3: PENGURUSAN TUGASAN -->
+            <div id="page-tugasan" class="page-content space-y-5 hidden">
+              <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+                <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+                  <div><h3 class="font-bold text-lg sky-gold">Pengurusan Tugasan & Kebenaran</h3><p class="text-xs text-slate-500 mt-1">Urus produk, templat WhatsApp dan hak edit ejen.</p></div>
+                  <span class="text-xs px-3 py-1 rounded-full border border-yellow-700 text-yellow-200 bg-[#292414]">Manager / Editor</span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div class="sky-panel rounded-xl p-5">
+                    <div class="flex items-center gap-3 mb-3"><i class="fa-solid fa-box-open text-2xl sky-gold"></i><div><h4 class="font-bold">Edit Produk</h4><p class="text-xs text-slate-400">Urus kategori, model, harga dan penerangan.</p></div></div>
+                    <label class="text-xs">Kategori produk</label><select id="task-product-category" class="w-full border rounded-lg p-2 text-xs mt-1"><option>Penapis Air</option><option>Penapis Udara</option><option>Aircond</option><option>Mattress</option></select>
+                    <label class="text-xs block mt-3">Nama model / produk</label><input id="task-product-name" class="w-full border rounded-lg p-2 text-xs mt-1" placeholder="Contoh: Model baharu">
+                    <label class="text-xs block mt-3">Harga / bulan</label><input id="task-product-price" class="w-full border rounded-lg p-2 text-xs mt-1" placeholder="RM 99 / bulan">
+                    <button onclick="saveTaskProduct()" class="sky-gold-btn rounded-lg px-4 py-2 text-xs mt-4"><i class="fa-solid fa-floppy-disk mr-1"></i> Simpan Produk Demo</button>
+                  </div>
+                  <div class="sky-panel rounded-xl p-5">
+                    <div class="flex items-center gap-3 mb-3"><i class="fa-brands fa-whatsapp text-2xl sky-gold"></i><div><h4 class="font-bold">Edit WhatsApp 1</h4><p class="text-xs text-slate-400">Tetapkan ayat rasmi dan ejen yang dibenarkan mengedit.</p></div></div>
+                    <label class="text-xs">Templat WhatsApp Manager / Editor</label><textarea id="manager-wa-template" rows="4" class="w-full border rounded-lg p-2 text-xs mt-1">Salam sejahtera Tuan/Puan. Terima kasih kerana meluangkan masa. Saya ingin berkongsi maklumat produk yang mungkin sesuai untuk Tuan/Puan.</textarea>
+                    <label class="text-xs block mt-3">Had ejen yang dibenarkan</label><input type="number" id="wa-edit-limit" min="0" value="2" class="w-full border rounded-lg p-2 text-xs mt-1">
+                    <label class="text-xs block mt-3">Pilih ejen dibenarkan (demo)</label><select id="wa-edit-agents" multiple class="w-full border rounded-lg p-2 text-xs mt-1 h-24"><option>Zilong</option><option>Fanny</option><option>Layla</option><option>Minotaur</option></select>
+                    <button onclick="saveWhatsAppPermissions()" class="sky-gold-btn rounded-lg px-4 py-2 text-xs mt-4"><i class="fa-solid fa-shield-halved mr-1"></i> Simpan Kebenaran</button>
+                  </div>
+                </div>
+                <div class="mt-4 p-4 rounded-xl border border-yellow-800/50 bg-[#201b0d] text-xs text-yellow-100"><i class="fa-solid fa-circle-info mr-1"></i> Ini prototaip paparan: tetapan disimpan dalam sesi browser sahaja. Integrasi pangkalan data dan pengesahan hak akses sebenar memerlukan backend.</div>
+              </div>
+            </div>
+
+            <!-- PAGE 4: DATABASE PELANGGAN (BASED ON SLIDE PPT) -->
+            <div id="page-database" class="page-content space-y-5 hidden">
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                        <div>
+                            <h3 class="font-bold text-slate-800 text-lg">Database Pelanggan Utama</h3>
+                            <p class="text-xs text-slate-500">Senarai induk pelanggan, status tindakan dan shortcut panggilan susulan.</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <input type="text" placeholder="Cari nama / IC..." class="border border-slate-300 rounded-lg px-3 py-1.5 text-xs w-48">
+                            <button class="bg-blue-600 text-white text-xs px-3 py-1.5 rounded-lg font-medium">+ Tambah Pelanggan</button>
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-xs text-left text-slate-600 border border-slate-200 rounded-lg">
+                            <thead class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
+                                <tr>
+                                    <th class="py-2.5 px-3 border-r">HP CODE</th>
+                                    <th class="py-2.5 px-3 border-r">Nama Customer</th>
+                                    <th class="py-2.5 px-3 border-r">IC Customer</th>
+                                    <th class="py-2.5 px-3 border-r">Nama Produk</th>
+                                    <th class="py-2.5 px-3 border-r">Alamat</th>
+                                    <th class="py-2.5 px-3 border-r">Status</th>
+                                    <th class="py-2.5 px-3 border-r">Installation</th>
+                                    <th class="py-2.5 px-3">Status Tindakan</th><th class="py-2.5 px-3">Tindakan Pantas</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200">
+                                <tr>
+                                    <td class="py-2 px-3 border-r font-mono">11</td>
+                                    <td class="py-2 px-3 border-r font-semibold text-slate-800">Zilong</td>
+                                    <td class="py-2 px-3 border-r">90863252985</td>
+                                    <td class="py-2 px-3 border-r">Penapis Air Villaem III</td>
+                                    <td class="py-2 px-3 border-r">123 Jbui, Selangor</td>
+                                    <td class="py-2 px-3 border-r"><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-[10px]">Aktif</span></td>
+                                    <td class="py-2 px-3 border-r">Jan 2021</td>
+                                    <td class="py-2 px-3"><select class="border rounded p-1 text-[10px]" onchange="showToast('Status pelanggan dikemas kini: '+this.value)"><option>Berminat</option><option>Call Back</option><option>Follow Up</option><option>Tidak Berminat</option></select></td><td class="py-2 px-3"><button onclick="quickCallCustomer('Zilong')" class="sky-small-action">📞 Call now</button><button onclick="quickWhatsAppCustomer('Zilong','60123456789')" class="sky-small-action">WhatsApp</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-3 border-r font-mono">22</td>
+                                    <td class="py-2 px-3 border-r font-semibold text-slate-800">Lunox</td>
+                                    <td class="py-2 px-3 border-r">98734526344</td>
+                                    <td class="py-2 px-3 border-r">Penapis Udara Storm</td>
+                                    <td class="py-2 px-3 border-r">342 Kshsf, KL</td>
+                                    <td class="py-2 px-3 border-r"><span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded text-[10px]">Pemasangan</span></td>
+                                    <td class="py-2 px-3 border-r">Feb 2022</td>
+                                    <td class="py-2 px-3"><select class="border rounded p-1 text-[10px]" onchange="showToast('Status pelanggan dikemas kini: '+this.value)"><option>Follow Up</option><option>Berminat</option><option>Call Back</option><option>Tidak Berminat</option></select></td><td class="py-2 px-3"><button onclick="quickCallCustomer('Miya')" class="sky-small-action">📞 Call now</button><button onclick="quickWhatsAppCustomer('Miya','60198765432')" class="sky-small-action">WhatsApp</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-3 border-r font-mono">33</td>
+                                    <td class="py-2 px-3 border-r font-semibold text-slate-800">Valir</td>
+                                    <td class="py-2 px-3 border-r">106605799703</td>
+                                    <td class="py-2 px-3 border-r">Aircond Inverter 1.5HP</td>
+                                    <td class="py-2 px-3 border-r">8632 Sjd, Johor</td>
+                                    <td class="py-2 px-3 border-r"><span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded text-[10px]">Pending</span></td>
+                                    <td class="py-2 px-3 border-r">Mac 2023</td>
+                                    <td class="py-2 px-3"><select class="border rounded p-1 text-[10px]" onchange="showToast('Status pelanggan dikemas kini: '+this.value)"><option>Call Back</option><option>Berminat</option><option>Follow Up</option><option>Tidak Berminat</option></select></td><td class="py-2 px-3"><button onclick="quickCallCustomer('Valir')" class="sky-small-action">📞 Call now</button><button onclick="quickWhatsAppCustomer('Valir','601122334455')" class="sky-small-action">WhatsApp</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 5: PENGURUSAN EJEN (BASED ON SLIDE PPT) -->
+            <div id="page-ejen" class="page-content space-y-5 hidden">
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="font-bold text-slate-800 text-lg uppercase tracking-wide">PENGURUSAN EJEN</h3>
+                        <button class="bg-blue-600 text-white text-xs px-3 py-2 rounded-lg font-bold">+ Ejen Baharu</button>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                        <!-- Agent Cards -->
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                            <div class="flex items-center gap-3"><img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Zilong" class="w-12 h-12 rounded-full border-2 border-yellow-600" alt="Zilong"><div><div class="font-bold text-slate-800 text-base">Zilong</div><div class="text-[10px] text-slate-400">Agent aktif</div></div></div><div class="text-xs text-slate-500">Telefon: <span class="text-slate-200">012-111 2201</span></div><div class="text-xs text-slate-500">Berminat: <b class="text-yellow-300">12</b> · Follow-up: <b class="text-yellow-300">8</b></div>
+                            <div class="text-xs text-slate-500">Hp Code: <span class="font-semibold text-slate-700">AGENT-01</span></div>
+                            <div class="text-xs text-slate-500">Total Leads: <span class="font-bold text-blue-600">45 Leads</span></div>
+                            <div class="pt-2 flex space-x-2 text-xs">
+                                <button onclick="openAgentEditor(this)" class="text-yellow-300 font-semibold hover:underline">Edit Ejen</button>
+                                <span class="text-slate-300">|</span>
+                                <button class="text-rose-600 font-semibold hover:underline">Padam</button>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                            <div class="flex items-center gap-3"><img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Fanny" class="w-12 h-12 rounded-full border-2 border-yellow-600" alt="Fanny"><div><div class="font-bold text-slate-800 text-base">Fanny</div><div class="text-[10px] text-slate-400">Agent aktif</div></div></div><div class="text-xs text-slate-500">Telefon: <span class="text-slate-200">012-111 2202</span></div><div class="text-xs text-slate-500">Berminat: <b class="text-yellow-300">9</b> · Follow-up: <b class="text-yellow-300">11</b></div>
+                            <div class="text-xs text-slate-500">Hp Code: <span class="font-semibold text-slate-700">AGENT-02</span></div>
+                            <div class="text-xs text-slate-500">Total Leads: <span class="font-bold text-blue-600">38 Leads</span></div>
+                            <div class="pt-2 flex space-x-2 text-xs">
+                                <button onclick="openAgentEditor(this)" class="text-yellow-300 font-semibold hover:underline">Edit Ejen</button>
+                                <span class="text-slate-300">|</span>
+                                <button class="text-rose-600 font-semibold hover:underline">Padam</button>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                            <div class="flex items-center gap-3"><img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Layla" class="w-12 h-12 rounded-full border-2 border-yellow-600" alt="Layla"><div><div class="font-bold text-slate-800 text-base">Layla</div><div class="text-[10px] text-slate-400">Agent aktif</div></div></div><div class="text-xs text-slate-500">Telefon: <span class="text-slate-200">012-111 2203</span></div><div class="text-xs text-slate-500">Berminat: <b class="text-yellow-300">15</b> · Follow-up: <b class="text-yellow-300">6</b></div>
+                            <div class="text-xs text-slate-500">Hp Code: <span class="font-semibold text-slate-700">AGENT-03</span></div>
+                            <div class="text-xs text-slate-500">Total Leads: <span class="font-bold text-blue-600">52 Leads</span></div>
+                            <div class="pt-2 flex space-x-2 text-xs">
+                                <button onclick="openAgentEditor(this)" class="text-yellow-300 font-semibold hover:underline">Edit Ejen</button>
+                                <span class="text-slate-300">|</span>
+                                <button class="text-rose-600 font-semibold hover:underline">Padam</button>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                            <div class="flex items-center gap-3"><img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Minotaur" class="w-12 h-12 rounded-full border-2 border-yellow-600" alt="Minotaur"><div><div class="font-bold text-slate-800 text-base">Minotaur</div><div class="text-[10px] text-slate-400">Agent aktif</div></div></div><div class="text-xs text-slate-500">Telefon: <span class="text-slate-200">012-111 2204</span></div><div class="text-xs text-slate-500">Berminat: <b class="text-yellow-300">7</b> · Follow-up: <b class="text-yellow-300">5</b></div>
+                            <div class="text-xs text-slate-500">Hp Code: <span class="font-semibold text-slate-700">AGENT-04</span></div>
+                            <div class="text-xs text-slate-500">Total Leads: <span class="font-bold text-blue-600">29 Leads</span></div>
+                            <div class="pt-2 flex space-x-2 text-xs">
+                                <button onclick="openAgentEditor(this)" class="text-yellow-300 font-semibold hover:underline">Edit Ejen</button>
+                                <span class="text-slate-300">|</span>
+                                <button class="text-rose-600 font-semibold hover:underline">Padam</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 6: LAPORAN -->
+            <div id="page-laporan" class="page-content space-y-5 hidden">
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <h3 class="font-bold text-slate-800 text-lg">Laporan & Analitis Panggilan</h3>
+                    <p class="text-xs text-slate-500">Tapis laporan mengikut ejen dan eksport rekod atau prestasi. Data ini ialah data demo prototaip.</p>
+                    <div class="flex flex-wrap gap-3 items-center"><label class="text-xs">Laporan untuk</label><select id="report-agent-filter" class="border rounded-lg px-3 py-2 text-xs"><option value="Semua Ejen">Semua Ejen (Overall)</option><option>Zilong</option><option>Fanny</option><option>Layla</option><option>Minotaur</option></select><label class="text-xs">Dari</label><input id="report-date-from" type="date" class="border rounded-lg px-2 py-2 text-xs"><label class="text-xs">Hingga</label><input id="report-date-to" type="date" class="border rounded-lg px-2 py-2 text-xs"></div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+                        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 space-y-2">
+                            <i class="fa-solid fa-file-csv text-emerald-600 text-2xl"></i>
+                            <h4 class="font-bold text-sm text-slate-800">Laporan Tugasan CSV</h4>
+                            <p class="text-xs text-slate-500">Eksport tugasan, pelanggan, ejen, status dan tarikh.</p>
+                            <button onclick="exportReportCSV()" class="sky-gold-btn text-xs px-3 py-1.5 rounded-lg font-bold">Muat Turun Excel / CSV</button>
+                        </div>
+                        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 space-y-2">
+                            <i class="fa-solid fa-chart-column text-blue-600 text-2xl"></i>
+                            <h4 class="font-bold text-sm text-slate-800">Ringkasan Prestasi</h4>
+                            <p class="text-xs text-slate-500">Jumlah tugasan mengikut status dan ejen.</p>
+                            <button onclick="exportReportCSV(true)" class="sky-gold-btn text-xs px-3 py-1.5 rounded-lg font-bold">Eksport Prestasi Ejen</button>
+                        </div>
+                        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 space-y-2">
+                            <i class="fa-solid fa-file-pdf text-rose-600 text-2xl"></i>
+                            <h4 class="font-bold text-sm text-slate-800">Laporan PDF</h4>
+                            <p class="text-xs text-slate-500">Eksport PDF dengan carta statistik visual.</p>
+                            <button onclick="exportReportPDF()" class="bg-rose-700 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded-lg font-bold">Muat Turun / Cetak PDF</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 7: TETAPAN SISTEM -->
+            <div id="page-tetapan" class="page-content space-y-5 hidden">
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <h3 class="font-bold text-slate-800 text-lg">Tetapan Sistem & Konfigurasi Auto Dialing</h3>
+                    <div class="space-y-3 divide-y divide-slate-100 text-xs">
+                        <div class="pt-3 flex justify-between items-center">
+                            <div>
+                                <div class="font-bold text-slate-800">Masa Tamat Panggilan Automatik (Dial Timeout)</div>
+                                <div class="text-slate-500">Masa tunggu sebelum menukar nombor secara automatik.</div>
+                            </div>
+                            <span class="font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-lg border border-blue-200">30 Saat</span>
+                        </div>
+                        <div class="pt-3 flex justify-between items-center">
+                            <div>
+                                <div class="font-bold text-slate-800">Integrasi WhatsApp Gateway</div>
+                                <div class="text-slate-500">Penghantaran mesej direct web API.</div>
+                            </div>
+                            <span class="font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-lg border border-emerald-200">Aktif</span>
+                        </div>
+                        <div class="pt-3 flex justify-between items-center">
+                            <div>
+                                <div class="font-bold text-slate-800">Reset Data Simulasi Demo</div>
+                                <div class="text-slate-500">Kembalikan senarai panggilan dan data pelanggan ke asal.</div>
+                            </div>
+                            <button onclick="resetDemoData()" class="bg-rose-50 text-rose-600 hover:bg-rose-100 font-bold px-3 py-1.5 rounded-lg border border-rose-200 transition">
+                                Reset Data
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+
+    <div id="sky-modal-root"></div>
+    <div id="sky-hidden-agent-photo" class="hidden"></div>
+
+    <!-- TOAST NOTIFICATION POPUP -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center space-x-3 text-xs border border-slate-700">
+            <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
+            <span id="toast-message" class="font-medium">Mesej berjaya dihantar!</span>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT SYSTEM LOGIC -->
+    <script>
+        // MOCK DATABASE FOR CALL QUEUE & CUSTOMERS
+        const initialQueueData = [
+            { id: 1, name: 'Alucard', phone: '+6012-345 6789', ic: '820314-10-5231', product: 'Penapis Air Villaem III', status: 'Pending', address: 'No 12, Jalan Merbok, Ipoh, Perak', installDate: 'Jan 2020', expireDate: 'Jan 2027', callStatus: 'Belum dihubungi' },
+            { id: 2, name: 'Miya', phone: '+6019-876 5432', ic: '910520-08-6122', product: 'Penapis Udara Storm', status: 'Berminat Follow-up', address: 'B-12-3, Kondominium Mutiara, Petaling Jaya', installDate: 'Mac 2021', expireDate: 'Mac 2028', callStatus: 'Belum dihubungi' },
+            { id: 3, name: 'Layla', phone: '+6017-112 2334', ic: '880412-10-5542', product: 'Aircond Inverter 1.5HP', status: 'Pemasangan Produk', address: 'Sebelah rumah Din orang kaya, Taman Jaya', installDate: 'Jan 2020', expireDate: 'Jan 2027', callStatus: 'Belum dihubungi' },
+            { id: 4, name: 'Zilong', phone: '+6013-445 5667', ic: '750911-01-4433', product: 'Coway Mattress King', status: 'Pending', address: 'Lot 45, Kampung Melayu, Subang', installDate: 'Jun 2019', expireDate: 'Jun 2026', callStatus: 'Belum dihubungi' },
+            { id: 5, name: 'Fanny', phone: '+6011-223 3445', ic: '951201-14-8899', product: 'Washer Dryer Combined', status: 'Berminat', address: 'No. 8, Lorong Harmoni 4, Melaka', installDate: 'Feb 2022', expireDate: 'Feb 2029', callStatus: 'Belum dihubungi' },
+            { id: 6, name: 'Gusion', phone: '+6014-998 8776', ic: '930101-05-3321', product: 'Massage Chair Noble', status: 'Belum pasti', address: '22, Jalan Biru 2, Skudai, Johor', installDate: 'Okt 2020', expireDate: 'Okt 2027', callStatus: 'Belum dihubungi' },
+            { id: 7, name: 'Lesley', phone: '+6018-776 6554', ic: '890707-02-1144', product: 'Penapis Air Ombak', status: 'Pending', address: 'No. 99, Bandar Baru Bangi', installDate: 'Nov 2021', expireDate: 'Nov 2028', callStatus: 'Belum dihubungi' },
+            { id: 8, name: 'Chou', phone: '+6016-554 4332', ic: '840303-10-9988', product: 'Penapis Udara Noble', status: 'Tukar Pakej', address: '45-A, Jalan Kenanga, Seremban', installDate: 'Dis 2018', expireDate: 'Dis 2025', callStatus: 'Belum dihubungi' },
+            { id: 9, name: 'Kagura', phone: '+6012-111 2233', ic: '920808-04-7766', product: 'Penapis Air Neo Plus', status: 'Berminat', address: '88, Jalan Bersatu, Kuantan, Pahang', installDate: 'Ogos 2022', expireDate: 'Ogos 2029', callStatus: 'Belum dihubungi' },
+            { id: 10, name: 'Lancelot', phone: '+6017-999 0011', ic: '970202-08-3344', product: 'Aircond 2.0HP', status: 'Pending', address: '12, Jalan Indah 5, Alor Setar, Kedah', installDate: 'Mei 2023', expireDate: 'Mei 2030', callStatus: 'Belum dihubungi' },
+            { id: 11, name: 'Angela', phone: '+6011-2200 1101', ic: '000101-10-1001', product: 'Penapis Air Neo Plus', status: 'Pending', address: 'Puchong, Selangor', installDate: 'Jan 2022', expireDate: 'Jan 2029', callStatus: 'Belum dihubungi' },
+            { id: 12, name: 'Ling', phone: '+6011-2200 1102', ic: '000101-10-1002', product: 'Penapis Udara Storm', status: 'Pending', address: 'Bandar Kinrara, Selangor', installDate: 'Feb 2022', expireDate: 'Feb 2029', callStatus: 'Belum dihubungi' },
+            { id: 13, name: 'Melissa', phone: '+6011-2200 1103', ic: '000101-10-1003', product: 'Aircond Inverter 1.5HP', status: 'Pending', address: 'Subang Jaya, Selangor', installDate: 'Mac 2022', expireDate: 'Mac 2029', callStatus: 'Belum dihubungi' },
+            { id: 14, name: 'Xavier', phone: '+6011-2200 1104', ic: '000101-10-1004', product: 'Coway Mattress King', status: 'Pending', address: 'Shah Alam, Selangor', installDate: 'Apr 2022', expireDate: 'Apr 2029', callStatus: 'Belum dihubungi' },
+            { id: 15, name: 'Fredrinn', phone: '+6011-2200 1105', ic: '000101-10-1005', product: 'Penapis Air Villaem III', status: 'Pending', address: 'Petaling Jaya, Selangor', installDate: 'Mei 2022', expireDate: 'Mei 2029', callStatus: 'Belum dihubungi' }
+        ];
+
+        let queue = JSON.parse(JSON.stringify(initialQueueData));
+        let currentIndex = -1;
+        let isDialing = false;
+        let countdownTimer = null;
+        let timerSeconds = 30;
+        let answeredCount = 0;
+        let unansweredCount = 0;
+        let selectedCategoryKey = 'water';
+
+        // PRODUCT CATALOG DATA
+        const productsData = {
+            water: [
+                { id: 'w1', name: 'Penapis Air Villaem III', price: 'RM 77 / bulan', desc: '4 Suhu Air (Panas, Sejuk, Suam, Bilik), Tangki 11.3 Liter. Percuma Servis & Penukaran Filter.', img: 'https://placehold.co/100x100/0284c7/ffffff?text=Villaem+III' },
+                { id: 'w2', name: 'Penapis Air Ombak', price: 'RM 120 / bulan', desc: '50 Tetapan Suhu Air Khas untuk Susu Bayi, Kopi & Teh. Tangki Terbesar 13.5 Liter.', img: 'https://placehold.co/100x100/0369a1/ffffff?text=Ombak' },
+                { id: 'w3', name: 'Penapis Air Neo Plus', price: 'RM 65 / bulan', desc: 'Reka bentuk ultra nipis & moden. 3 Suhu Air Asas (Panas, Sejuk, Bilik). Penjimat Tenaga.', img: 'https://placehold.co/100x100/075985/ffffff?text=Neo+Plus' }
+            ],
+            air: [
+                { id: 'a1', name: 'Penapis Udara Storm', price: 'RM 70 / bulan', desc: 'Fungsi 2-dalam-1 Kipas & Penapis Udara. HEPA Filter Membasmi 99.9% Habuk & Virus.', img: 'https://placehold.co/100x100/0891b2/ffffff?text=Storm' },
+                { id: 'a2', name: 'Penapis Udara Noble', price: 'RM 140 / bulan', desc: 'Penapis Udara 360 Darjah dengan Teknologi Sterilisasi UVC Premium.', img: 'https://placehold.co/100x100/0e7490/ffffff?text=Noble' }
+            ],
+            ac: [
+                { id: 'c1', name: 'Aircond Smart Inverter 1.0HP', price: 'RM 90 / bulan', desc: 'Penjimat Elektrik 5-Bintang, Penapis Udara Terbina Dalam & Percuma Servis 5 Tahun.', img: 'https://placehold.co/100x100/0284c7/ffffff?text=Aircond+1HP' },
+                { id: 'c2', name: 'Aircond Smart Inverter 1.5HP', price: 'RM 110 / bulan', desc: 'Penjukan Pantas Turbo Cool, Sesuai Ruang Tamu Luas.', img: 'https://placehold.co/100x100/0369a1/ffffff?text=Aircond+1.5HP' }
+            ],
+            mattress: [
+                { id: 'm1', name: 'Coway Prime Mattress King', price: 'RM 139 / bulan', desc: 'Tilam 5-Zone Pocket Spring dengan Topper Boleh Ditukar. Servis Pembersihan Percuma.', img: 'https://placehold.co/100x100/4f46e5/ffffff?text=Mattress+King' },
+                { id: 'm2', name: 'Coway Prime Mattress Queen', price: 'RM 119 / bulan', desc: 'Sokongan Ergonomik Tulang Belakang Premium.', img: 'https://placehold.co/100x100/4338ca/ffffff?text=Mattress+Queen' }
+            ]
+        };
+
+        // INITIALIZATION
+        window.onload = function() {
+            renderQueueList();
+            updateStats();
+            selectCategory('water');
+        };
+
+        // NAVIGATION SWITCHER
+        function switchPage(pageId) {
+            document.querySelectorAll('.page-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.nav-item').forEach(el => {
+                el.classList.remove('bg-blue-600', 'text-white', 'shadow-md');
+                el.classList.add('text-slate-300');
+            });
+
+            document.getElementById(`page-${pageId}`).classList.remove('hidden');
+            const activeNav = document.getElementById(`nav-${pageId}`);
+            if(activeNav) {
+                activeNav.classList.add('bg-blue-600', 'text-white', 'shadow-md');
+                activeNav.classList.remove('text-slate-300');
+            }
+
+            // Update Header Title
+            const titles = {
+                dashboard: ['Dashboard', 'Smart Calling & Customer Relationship Management'],
+                autodial: ['Auto Dialing System', 'Simulasi Queue Panggilan & Pengurusan Rekod Interaktif'],
+                tugasan: ['Pengurusan Tugasan', 'Agihan Data Tugasan & Kempen Ejen'],
+                database: ['Database Pelanggan', 'Rekod Induk Maklumat & Kontrak Pelanggan'],
+                ejen: ['Pengurusan Ejen', 'Prestasi & Tetapan Pasukan Ejen'],
+                laporan: ['Laporan & Analisis', 'Eksport Rekod Tugasan & Prestasi'],
+                tetapan: ['Tetapan Sistem', 'Konfigurasi Parameter & Had Prototip']
+            };
+            if(titles[pageId]) {
+                document.getElementById('page-title').innerText = titles[pageId][0];
+                document.getElementById('page-subtitle').innerText = titles[pageId][1];
+            }
+        }
+
+        // AUTO DIALING CORE LOGIC
+        function startAutoDialing() {
+            if (queue.length === 0) {
+                showToast('Tiada customer dalam barisan!', 'error');
+                return;
+            }
+            if (isDialing) return;
+
+            isDialing = true;
+            document.getElementById('btn-start-dial').disabled = true;
+            document.getElementById('btn-start-dial').classList.add('opacity-50', 'cursor-not-allowed');
+            document.getElementById('btn-pause-dial').disabled = false;
+            document.getElementById('btn-pause-dial').classList.remove('bg-slate-200', 'text-slate-400', 'cursor-not-allowed');
+            document.getElementById('btn-pause-dial').classList.add('bg-amber-600', 'hover:bg-amber-700', 'text-white', 'shadow-md');
+
+            document.getElementById('dialing-status-badge').innerText = 'PANGGILAN AKTIF';
+            document.getElementById('dialing-status-badge').className = 'bg-emerald-500 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full uppercase animate-pulse';
+
+            if (currentIndex === -1 || currentIndex >= queue.length) {
+                currentIndex = 0;
+            }
+
+            dialCustomer(currentIndex);
+        }
+
+        function pauseAutoDialing() {
+            isDialing = false;
+            clearInterval(countdownTimer);
+
+            document.getElementById('btn-start-dial').disabled = false;
+            document.getElementById('btn-start-dial').classList.remove('opacity-50', 'cursor-not-allowed');
+            document.getElementById('btn-pause-dial').disabled = true;
+            document.getElementById('btn-pause-dial').className = 'w-full bg-slate-200 text-slate-400 cursor-not-allowed font-bold py-2.5 px-3 rounded-xl transition flex items-center justify-center space-x-2 text-sm';
+
+            document.getElementById('dialing-status-badge').innerText = 'PAUSED';
+            document.getElementById('dialing-status-badge').className = 'bg-amber-500 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full uppercase';
+
+            showToast('Auto Dialing dipausekan');
+        }
+
+        function dialCustomer(index) {
+            if (index >= queue.length) {
+                pauseAutoDialing();
+                document.getElementById('dialing-status-badge').innerText = 'TAMAT';
+                document.getElementById('dialing-status-badge').className = 'bg-slate-600 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full uppercase';
+                showToast('Semua barisan panggilan telah selesai!');
+                return;
+            }
+
+            currentIndex = index;
+            const currentCust = queue[currentIndex];
+            currentCust.callStatus = 'Sedang dipanggil...';
+
+            renderQueueList();
+            highlightCustomer(currentIndex);
+
+            // Reset Timer 30 Saat
+            clearInterval(countdownTimer);
+            timerSeconds = 30;
+            document.getElementById('timer-display').innerText = `${timerSeconds}s`;
+
+            countdownTimer = setInterval(() => {
+                timerSeconds--;
+                document.getElementById('timer-display').innerText = `${timerSeconds}s`;
+
+                if (timerSeconds <= 0) {
+                    clearInterval(countdownTimer);
+                    // Automatic Timeout -> Mark as Unanswered & Move Next
+                    handleUnansweredCall(currentCust);
+                }
+            }, 1000);
+        }
+
+        function handleUnansweredCall(cust) {
+            cust.callStatus = 'Tidak dijawab (Timeout 30s)';
+            unansweredCount++;
+            addCallLog(cust.name, cust.phone, 'Tidak Dijawab', 'Tamat masa 30 saat secara automatik');
+            updateStats();
+
+            showToast(`Panggilan ke ${cust.name} tidak dijawab (30s timeout).`, 'warning');
+
+            // Move to Next Customer Automatically
+            if (isDialing) {
+                setTimeout(() => {
+                    currentIndex++;
+                    dialCustomer(currentIndex);
+                }, 1000);
+            }
+        }
+
+        // SIMULATE CUSTOMER ANSWER (CLICK OR AUTO TRIGGER)
+        function simulateCustomerAnswer() {
+            if (currentIndex === -1 || currentIndex >= queue.length) {
+                showToast('Sila mula Auto Call dulu!', 'warning');
+                return;
+            }
+
+            clearInterval(countdownTimer);
+            const cust = queue[currentIndex];
+            cust.callStatus = 'DIJAWAB (Panggilan Aktif)';
+            answeredCount++;
+
+            showCustomerDetails(cust);
+            renderQueueList();
+            updateStats();
+            addCallLog(cust.name, cust.phone, 'DIJAWAB', 'Customer sedang bercakap dengan ejen');
+
+            showToast(`Customer ${cust.name} TELAH MENJAWAB! Maklumat dipaparkan.`, 'success');
+        }
+
+        function skipNextCall() {
+            if (currentIndex < queue.length - 1) {
+                clearInterval(countdownTimer);
+                if(queue[currentIndex]) {
+                    queue[currentIndex].callStatus = 'Dilangkau';
+                }
+                currentIndex++;
+                dialCustomer(currentIndex);
+            } else {
+                showToast('Dah sampai penghujung senarai panggilan.');
+            }
+        }
+
+        // RENDER CALL QUEUE LIST IN LEFT PANEL
+        function renderQueueList() {
+            const container = document.getElementById('call-queue-container');
+            container.innerHTML = '';
+
+            queue.forEach((cust, idx) => {
+                const isActive = (idx === currentIndex);
+                const isAnswered = cust.callStatus.includes('DIJAWAB');
+                const isFailed = cust.callStatus.includes('Tidak dijawab');
+
+                let badgeColor = 'bg-slate-100 text-slate-500';
+                if (isActive) badgeColor = 'bg-blue-600 text-white animate-pulse';
+                if (isAnswered) badgeColor = 'bg-emerald-500 text-white';
+                if (isFailed) badgeColor = 'bg-rose-100 text-rose-600';
+
+                const card = document.createElement('div');
+                card.className = `p-3 rounded-xl border transition-all cursor-pointer flex items-center justify-between ${
+                    isActive 
+                    ? 'border-blue-500 bg-blue-50/80 shadow-md ring-2 ring-blue-400/30' 
+                    : 'border-slate-200 bg-slate-50/60 hover:bg-slate-100'
+                }`;
+                card.onclick = () => {
+                    // Clicking customer manually opens their details panel
+                    currentIndex = idx;
+                    showCustomerDetails(cust);
+                    renderQueueList();
+                };
+
+                card.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <div class="w-7 h-7 rounded-full ${isActive ? 'bg-blue-600 text-white' : 'bg-slate-200 text-slate-700'} flex items-center justify-center font-bold text-xs">
+                            ${idx + 1}
+                        </div>
+                        <div>
+                            <div class="font-bold text-xs text-slate-800">${cust.name}</div>
+                            <div class="text-[10px] text-slate-500">${cust.phone}</div>
+                        </div>
+                    </div>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${badgeColor}">
+                        ${cust.callStatus}
+                    </span>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        // SHOW CUSTOMER DETAILS IN MIDDLE PANEL
+        function showCustomerDetails(cust) {
+            document.getElementById('customer-empty-state').classList.add('hidden');
+            document.getElementById('customer-details-card').classList.remove('hidden');
+            document.getElementById('customer-action-buttons').classList.remove('hidden');
+
+            document.getElementById('cust-display-name').innerText = cust.name;
+            document.getElementById('cust-display-phone').innerText = cust.phone;
+            document.getElementById('cust-ic').value = cust.ic;
+            document.getElementById('cust-existing-prod').value = cust.product;
+            document.getElementById('cust-address').value = cust.address;
+            document.getElementById('cust-install').value = cust.installDate;
+            document.getElementById('cust-expire').value = cust.expireDate;
+            document.getElementById('cust-status').value = cust.status || 'Pemasangan Produk';
+
+            document.getElementById('customer-active-badge').innerText = 'MAKLUMAT AKTIF';
+            document.getElementById('customer-active-badge').className = 'bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase';
+        }
+
+        function highlightCustomer(idx) {
+            const cust = queue[idx];
+            if (cust) {
+                showCustomerDetails(cust);
+            }
+        }
+
+        function setQuickRemark(text) {
+            document.getElementById('cust-remark-input').value = text;
+            showToast(`Remark ditambah: "${text}"`);
+        }
+
+        function saveCustomerProfile() {
+            if (currentIndex >= 0 && queue[currentIndex]) {
+                queue[currentIndex].status = document.getElementById('cust-status').value;
+                queue[currentIndex].address = document.getElementById('cust-address').value;
+                showToast(`Profil ${queue[currentIndex].name} berjaya disimpan!`, 'success');
+            }
+        }
+
+        // PRODUCT & WHATSAPP INTEGRATION LOGIC (RIGHT PANEL)
+        function selectCategory(catKey) {
+            selectedCategoryKey = catKey;
+            
+            // Highlight Button Active State
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.className = 'cat-btn p-2 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 font-semibold text-xs flex items-center space-x-2 transition';
+            });
+            const activeBtn = document.getElementById(`cat-btn-${catKey}`);
+            if(activeBtn) {
+                activeBtn.className = 'cat-btn p-2 rounded-xl border border-blue-500 bg-blue-50 text-blue-700 font-semibold text-xs flex items-center space-x-2 transition shadow-sm';
+            }
+
+            // Populate Sub-Select
+            const selectEl = document.getElementById('product-model-select');
+            selectEl.innerHTML = '';
+
+            const list = productsData[catKey] || [];
+            list.forEach(p => {
+                const opt = document.createElement('option');
+                opt.value = p.id;
+                opt.innerText = `${p.name} - (${p.price})`;
+                selectEl.appendChild(opt);
+            });
+
+            onModelChange();
+        }
+
+        function onModelChange() {
+            const selectEl = document.getElementById('product-model-select');
+            const selectedVal = selectEl.value;
+            const list = productsData[selectedCategoryKey] || [];
+            const prod = list.find(p => p.id === selectedVal) || list[0];
+
+            if (prod) {
+                document.getElementById('prod-img').src = prod.img;
+                document.getElementById('prod-title').innerText = prod.name;
+                document.getElementById('prod-price').innerText = prod.price;
+                document.getElementById('prod-desc').innerText = prod.desc;
+
+                // Auto Update WhatsApp Textarea Message
+                const custName = (currentIndex >= 0 && queue[currentIndex]) ? queue[currentIndex].name : 'Tuan/Puan';
+                const message = `Salam sejahtera ${custName},\n\nTerima kasih kerana meluangkan masa dalam panggilan sebentar tadi. Ini maklumat produk yang saya cadangkan:\n\n📌 *${prod.name}*\n💰 Harga Promosi: ${prod.price}\n✨ Kelebihan: ${prod.desc}\n\nBoleh saya bantu daftarkan promosi percuma yuran pendaftaran hari ini?`;
+                
+                document.getElementById('whatsapp-message').value = message;
+            }
+        }
+
+        // SEND DIRECT TO WHATSAPP ACTION
+        function sendDirectWhatsApp() {
+            const cust = (currentIndex >= 0 && queue[currentIndex]) ? queue[currentIndex] : null;
+            const message = encodeURIComponent(document.getElementById('whatsapp-message').value);
+            
+            if (cust && cust.phone) {
+                // Clean phone number for WhatsApp Web link
+                const cleanPhone = cust.phone.replace(/[^0-9]/g, '');
+                const waUrl = `https://wa.me/${cleanPhone}?text=${message}`;
+                window.open(waUrl, '_blank');
+                showToast(`Membuka WhatsApp untuk ${cust.name}...`, 'success');
+                addCallLog(cust.name, cust.phone, 'WhatsApp Dihantar', 'Promosi produk telah dihantar ke WhatsApp');
+            } else {
+                showToast('Sila pilih/panggil customer terlebih dahulu!', 'warning');
+            }
+        }
+
+        // UPDATE STATS & LOG
+        function updateStats() {
+            document.getElementById('stat-total').innerText = queue.length;
+            document.getElementById('stat-answered').innerText = answeredCount;
+            document.getElementById('stat-unanswered').innerText = unansweredCount;
+            document.getElementById('stat-remaining').innerText = Math.max(0, queue.length - (answeredCount + unansweredCount));
+        }
+
+        function addCallLog(name, phone, status, remark) {
+            const tbody = document.getElementById('call-log-tbody');
+            if (tbody.querySelector('.italic')) {
+                tbody.innerHTML = '';
+            }
+
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+            let statusBadge = `<span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-bold">${status}</span>`;
+            if (status.includes('DIJAWAB')) statusBadge = `<span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-bold">${status}</span>`;
+            if (status.includes('Tidak')) statusBadge = `<span class="bg-rose-100 text-rose-700 px-2 py-0.5 rounded-full font-bold">${status}</span>`;
+
+            const row = document.createElement('tr');
+            row.className = 'hover:bg-slate-50 transition';
+            row.innerHTML = `
+                <td class="py-2.5 px-3 font-mono text-slate-500">${timeStr}</td>
+                <td class="py-2.5 px-3 font-semibold text-slate-800">${name}</td>
+                <td class="py-2.5 px-3 text-slate-600">${phone}</td>
+                <td class="py-2.5 px-3">${statusBadge}</td>
+                <td class="py-2.5 px-3 text-slate-600">${remark}</td>
+            `;
+
+            tbody.prepend(row);
+        }
+
+        function resetDemoData() {
+            queue = JSON.parse(JSON.stringify(initialQueueData));
+            currentIndex = -1;
+            isDialing = false;
+            clearInterval(countdownTimer);
+            answeredCount = 0;
+            unansweredCount = 0;
+            renderQueueList();
+            updateStats();
+            document.getElementById('customer-empty-state').classList.remove('hidden');
+            document.getElementById('customer-details-card').classList.add('hidden');
+            document.getElementById('customer-action-buttons').classList.add('hidden');
+            showToast('Data demo berjaya di-reset ke asal.');
+        }
+
+        // UTILITY TOAST POPUP
+        function showToast(msg, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const msgEl = document.getElementById('toast-message');
+            const iconEl = document.getElementById('toast-icon');
+
+            msgEl.innerText = msg;
+            if (type === 'success') {
+                iconEl.className = 'fa-solid fa-circle-check text-emerald-400 text-base';
+            } else if (type === 'warning' || type === 'error') {
+                iconEl.className = 'fa-solid fa-circle-exclamation text-amber-400 text-base';
+            } else {
+                iconEl.className = 'fa-solid fa-info-circle text-cyan-400 text-base';
+            }
+
+            container.classList.remove('translate-y-20', 'opacity-0');
+            container.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                container.classList.add('translate-y-20', 'opacity-0');
+                container.classList.remove('translate-y-0', 'opacity-100');
+            }, 3000);
+        }
+    
+        // SKYBOUND HQ enhancements (prototype/demo interactions)
+        let currentLeadAction = 'Follow Up';
+        let agentPhotoDraft = '';
+        const customWhatsAppTemplates = {
+          manager: 'Salam sejahtera Tuan/Puan. Terima kasih kerana meluangkan masa. Saya ingin berkongsi maklumat produk yang mungkin sesuai untuk Tuan/Puan.',
+          custom1: 'Salam Tuan/Puan 😊 Saya follow up semula perbualan kita sebelum ini. Jika Tuan/Puan berminat, saya boleh bantu semak pilihan yang sesuai.',
+          custom2: 'Hi Tuan/Puan! 👋 Saya kongsikan maklumat ringkas seperti yang dijanjikan. Bila masa yang sesuai untuk saya hubungi semula?'
+        };
+        function setLeadAction(action) {
+          currentLeadAction = action;
+          const hidden = document.getElementById('cust-action-status');
+          if(hidden) hidden.value = action;
+          document.querySelectorAll('.lead-action').forEach(btn => {
+            btn.style.boxShadow = btn.textContent.includes(action) ? '0 0 0 2px #d4af37' : 'none';
+          });
+          const date = document.getElementById('cust-reminder-date');
+          if(date && ['Berminat','Call Back','Follow Up'].includes(action) && !date.value) {
+            const d = new Date(); d.setDate(d.getDate()+1); date.value = d.toISOString().slice(0,10);
+          }
+          if(action === 'Tidak Berminat' && date) date.value = '';
+          showToast('Status tindakan dipilih: ' + action);
+        }
+        function applyWhatsAppTemplate() {
+          const sel = document.getElementById('whatsapp-template');
+          const box = document.getElementById('whatsapp-message');
+          if(sel && box) {
+            const key = sel.value;
+            if(key === 'manager') {
+              const manager = document.getElementById('manager-wa-template');
+              box.value = manager ? manager.value : customWhatsAppTemplates.manager;
+            } else box.value = customWhatsAppTemplates[key] || '';
+          }
+        }
+        function quickCallCustomer(name) {
+          const found = queue.findIndex(c => c.name === name);
+          if(found >= 0) {
+            currentIndex = found; showCustomerDetails(queue[found]); switchPage('autodial');
+            showToast('Profil ' + name + ' dibuka. Sambung panggilan melalui sistem telefon.', 'success');
+          } else {
+            switchPage('autodial');
+            showToast('Buka Auto Dialing untuk memilih ' + name + '.', 'info');
+          }
+        }
+        function quickWhatsAppCustomer(name, phone) {
+          const clean = String(phone || '').replace(/\D/g,'');
+          if(!clean) { showToast('Nombor telefon pelanggan tiada.', 'warning'); return; }
+          const msg = encodeURIComponent(document.getElementById('whatsapp-message')?.value || customWhatsAppTemplates.manager);
+          window.open('https://wa.me/' + clean + '?text=' + msg, '_blank');
+          showToast('WhatsApp dibuka untuk ' + name + '. Semak dan tekan Send dalam WhatsApp.', 'success');
+        }
+        function saveTaskProduct() {
+          const name = document.getElementById('task-product-name').value.trim();
+          const price = document.getElementById('task-product-price').value.trim();
+          if(!name) { showToast('Masukkan nama produk dahulu.', 'warning'); return; }
+          const option = document.createElement('option');
+          option.textContent = name + (price ? ' — ' + price : '');
+          option.value = name;
+          document.getElementById('product-model-select').appendChild(option);
+          showToast('Produk demo ditambah ke pilihan model. Backend belum disambungkan.', 'success');
+        }
+        function saveWhatsAppPermissions() {
+          const limit = Math.max(0, Number(document.getElementById('wa-edit-limit').value || 0));
+          const selected = Array.from(document.getElementById('wa-edit-agents').selectedOptions).map(o=>o.value);
+          customWhatsAppTemplates.manager = document.getElementById('manager-wa-template').value;
+          if(selected.length > limit) {
+            showToast('Pilihan melebihi had ' + limit + ' ejen. Kurangkan pilihan dahulu.', 'warning');
+            return;
+          }
+          showToast('Templat disimpan untuk demo. Ejen dibenarkan: ' + (selected.join(', ') || 'tiada'), 'success');
+        }
+        function openAgentEditor(btn) {
+          const card = btn.closest('.p-4');
+          const name = card?.querySelector('.text-base')?.textContent?.trim() || 'Ejen';
+          const code = card?.innerText.match(/Hp Code:\s*([^\n]+)/)?.[1]?.trim() || 'AGENT';
+          const phone = card?.innerText.match(/Telefon:\s*([^\n]+)/)?.[1]?.trim() || '';
+          document.getElementById('sky-modal-root').innerHTML = `
+            <div class="sky-modal-backdrop" onclick="if(event.target===this)this.remove()"><div class="sky-modal">
+              <div class="flex items-center justify-between mb-4"><h3 class="text-lg font-bold sky-gold">Edit Profil Ejen</h3><button onclick="document.querySelector('.sky-modal-backdrop').remove()" class="text-xl">×</button></div>
+              <label>Nama ejen</label><input id="agent-edit-name" value="${name}">
+              <label>Ejen Code</label><input id="agent-edit-code" value="${code}">
+              <label>Nombor telefon</label><input id="agent-edit-phone" value="${phone}" placeholder="01X-XXXXXXX">
+              <label>Gambar ejen</label><input type="file" id="agent-edit-photo" accept="image/*" onchange="previewAgentPhoto(this)">
+              <img id="agent-photo-preview" src="https://api.dicebear.com/9.x/avataaars/svg?seed=${encodeURIComponent(name)}" class="w-20 h-20 rounded-full border-2 border-yellow-600 mt-2 object-cover" alt="Preview gambar">
+              <label>Reset password (demo sahaja)</label><input id="agent-reset-password" type="password" placeholder="Masukkan password baharu">
+              <p class="text-[11px] text-yellow-200 mt-2">Prototaip sahaja: password sebenar mesti direset melalui sistem backend yang selamat.</p>
+              <div class="flex gap-2 mt-5"><button onclick="saveAgentEditor()" class="sky-gold-btn rounded-lg px-4 py-2 text-sm">Simpan Perubahan</button><button onclick="document.querySelector('.sky-modal-backdrop').remove()" class="border border-slate-600 rounded-lg px-4 py-2 text-sm">Batal</button></div>
+            </div></div>`;
+          agentPhotoDraft = '';
+        }
+        function previewAgentPhoto(input) {
+          const file = input.files && input.files[0];
+          if(!file) return;
+          const reader = new FileReader();
+          reader.onload = e => { agentPhotoDraft = e.target.result; const img = document.getElementById('agent-photo-preview'); if(img) img.src = agentPhotoDraft; };
+          reader.readAsDataURL(file);
+        }
+        function saveAgentEditor() {
+          const modal = document.querySelector('.sky-modal-backdrop');
+          if(!modal) return;
+          const name = document.getElementById('agent-edit-name').value.trim();
+          if(!name) { showToast('Nama ejen diperlukan.', 'warning'); return; }
+          const card = Array.from(document.querySelectorAll('#page-ejen .p-4')).find(c => c.querySelector('.text-base')?.textContent?.trim() === modal.querySelector('#agent-edit-name').defaultValue);
+          if(card) {
+            const title = card.querySelector('.text-base'); if(title) title.textContent = name;
+            const img = card.querySelector('img'); if(img && agentPhotoDraft) img.src = agentPhotoDraft;
+            const lines = card.querySelectorAll('.text-xs');
+            lines.forEach(el => { if(el.textContent.includes('Hp Code:')) el.innerHTML = 'Hp Code: <span class="font-semibold text-slate-200">' + document.getElementById('agent-edit-code').value + '</span>'; if(el.textContent.includes('Telefon:')) el.innerHTML = 'Telefon: <span class="text-slate-200">' + document.getElementById('agent-edit-phone').value + '</span>'; });
+          }
+          modal.remove();
+          showToast('Profil ejen dikemas kini untuk sesi demo. Reset password backend belum aktif.', 'success');
+        }
+        function exportReportCSV(agentOnly=false) {
+          const filter = document.getElementById('report-agent-filter')?.value || 'Semua Ejen';
+          const rows = [['Laporan SKYBOUND HQ'],['Skop', agentOnly ? 'Prestasi Ejen' : 'Rekod Tugasan'],['Ejen',filter],['Nama Customer','Telefon','Status','Catatan']];
+          queue.forEach(c => rows.push([c.name,c.phone,c.status,c.callStatus || 'Belum dihubungi']));
+          const csv = rows.map(r => r.map(v => '"' + String(v ?? '').replace(/"/g,'""') + '"').join(',')).join('\r\n');
+          const blob = new Blob(['\ufeff' + csv], {type:'text/csv;charset=utf-8;'});
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a'); a.href=url; a.download='skybound-hq-laporan.csv'; a.click(); URL.revokeObjectURL(url);
+          showToast('Laporan CSV berjaya dijana.', 'success');
+        }
+        function exportReportPDF() {
+          const filter = document.getElementById('report-agent-filter')?.value || 'Semua Ejen';
+          const rows = queue.map(c => `<tr><td>${c.name}</td><td>${c.phone}</td><td>${c.status}</td><td>${c.callStatus || 'Belum dihubungi'}</td></tr>`).join('');
+          const win = window.open('', '_blank');
+          if(!win) { showToast('Benarkan pop-up browser untuk cetak PDF.', 'warning'); return; }
+          win.document.write(`<html><head><title>Laporan SKYBOUND HQ</title><style>body{font-family:Arial;padding:24px;color:#222}h1{color:#92721a}table{width:100%;border-collapse:collapse}th,td{border:1px solid #bbb;padding:8px;text-align:left;font-size:12px}th{background:#eee}</style></head><body><h1>SKYBOUND HQ — Laporan Prestasi</h1><p>Skop: ${filter}</p><p>Tarikh: ${new Date().toLocaleDateString('ms-MY')}</p><table><thead><tr><th>Nama Customer</th><th>Telefon</th><th>Status</th><th>Call</th></tr></thead><tbody>${rows}</tbody></table><script>window.onload=()=>window.print()<\/script></body></html>`);
+          win.document.close();
+        }
+        // Extend the save action to record status and reminder dates in the in-memory demo.
+        const skyOriginalSaveCustomerProfile = saveCustomerProfile;
+        saveCustomerProfile = function() {
+          const cust = currentIndex >= 0 ? queue[currentIndex] : null;
+          if(cust) {
+            cust.status = document.getElementById('cust-action-status')?.value || document.getElementById('cust-status').value;
+            cust.remark = document.getElementById('cust-remark-input')?.value || '';
+            cust.reminderDate = document.getElementById('cust-reminder-date')?.value || '';
+            cust.whatsAppDate = document.getElementById('cust-wa-date')?.value || '';
+            cust.status = cust.status || document.getElementById('cust-status').value;
+            renderQueueList();
+            showToast('Status, remark dan tarikh reminder disimpan untuk sesi demo.', 'success');
+          } else skyOriginalSaveCustomerProfile();
+        };
+        // Dashboard action buttons should open the matching lead where available.
+
+    </script>
+</body>
+</html>
